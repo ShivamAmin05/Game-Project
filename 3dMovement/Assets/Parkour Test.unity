@@ -1535,8 +1535,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765166402}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 318.29, y: 1, z: 308.85}
+  m_LocalPosition: {x: 7.1103, y: -0, z: 1.602}
+  m_LocalScale: {x: 342.95078, y: 0.94286364, z: 543.44147}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1863715244}
@@ -1677,7 +1677,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874252555}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1449585, y: 18.28, z: -2.472927}
+  m_LocalPosition: {x: -1.1449585, y: 11.84, z: -2.472927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1776,11 +1776,11 @@ MonoBehaviour:
   orientation: {fileID: 1683408067}
   wallDistance: 1
   minimumJumpHeight: 1.5
-  wallRunGravity: 2
+  wallRunGravity: 1
   wallRunJumpForce: 5
   cam: {fileID: 646513186}
-  fov: 120
-  wallFov: 80
+  fov: 90
+  wallFov: 110
   wallFovTime: 1
   camTilt: 20
   camTiltTime: 3
