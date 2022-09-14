@@ -42,7 +42,6 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Reflection/LooseAssemblyNameOptionTree.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Variables/VariablesAssetEditor.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/ReorderableList/ElementAdderMenu/GenericElementAdderMenuBuilder.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/OnPreprocessBuildAnalytics.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Annotations/AnnotationDisabler.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Dropdowns/DropdownOption.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Licenses/License.MIT.cs" />
@@ -77,7 +76,6 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Plugin/Changelogs/LegacyLudiqGraphs/Changelog_1_2_4.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Plugin/Migrations/Migration_1_4_5_to_1_4_6.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Descriptors/IDescriptor.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/NodeUsageAnalytics.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/ReorderableList/Internal/ReorderableListResources.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Windows/Wizard.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Descriptors/Description.cs" />
@@ -182,7 +180,6 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Meta/MemberMetadata.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Inspection/Primitives/ShortInspector.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Windows/WebView.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/OnPreprocessBuildAnalyticsEventHandler.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Inspection/Reflection/NamespaceInspector.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Serialization/TypeExtensions.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Inspection/Primitives/IntInspector.cs" />
@@ -264,13 +261,11 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Windows/AboutWindow/AboutablePage.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Utilities/NativeUtility.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/MigrationAnalytics.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/HotkeyUsageAnalytics.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Licenses/License.CCA3.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Debugging/GraphDebugDataProvider.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Plugins/PluginMigration.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Utilities/FrameLimiterUtility.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Fuzzy/FuzzyOptionTree.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Inspection/Primitives/DiscreteNumberInspector.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Fuzzy/FuzzyOptionTree.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Inspection/ImplementationInspector.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Context/GraphContextAttribute.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Reflection/MemberOptionTree.cs" />
@@ -502,6 +497,11 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Inspection/Special/SystemObjectInspector.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Plugin/Changelogs/LegacyLudiqGraphs/Changelog_1_1_3.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Interface/Fuzzy/FuzzyOptionTreeExtensionAttribute.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/NodeUsageAnalytics.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/OnPreprocessBuildAnalytics.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/HotkeyUsageAnalytics.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Analytics/OnPreprocessBuildAnalyticsEventHandler.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Utilities/FrameLimiterUtility.cs" />
      <None Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.xml" />
      <None Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Unity.VisualScripting.Core.Editor.asmdef" />
      <None Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.xml" />
