@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     Rigidbody rb;
+    
     [SerializeField]Transform orientation; 
     float playerHeight;
     [Header("Movement")]
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        
     }
     private void Update() {
         ControlDrag();
