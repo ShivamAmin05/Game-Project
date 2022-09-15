@@ -14,7 +14,6 @@ public class PlayerLook : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        //stops the cursor from moving and hides it when the game starts
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -25,11 +24,14 @@ public class PlayerLook : MonoBehaviour
 
         yRotation += xInput * xSens * camMultiplier;
         xRotation -= yInput * ySens * camMultiplier;
-        //stops the camera from turning more than 90 degrees up or down
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0,yRotation,0);
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        
+    }
 }
