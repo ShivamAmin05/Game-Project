@@ -18,6 +18,7 @@ public class InputManager : MonoBehaviour
         // move = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
         move = GetComponent<PlayerMovement>();
+        player.Jump.performed += ctx => move.Jump();
     }
 
     // Update is called once per frame
