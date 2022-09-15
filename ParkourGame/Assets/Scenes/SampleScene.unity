@@ -443,7 +443,8 @@ MonoBehaviour:
   airMoveMultiplier: 2
   groundDrag: 10
   airDrag: 2
-  moveSpeed: 5
+  jumpForce: 10
+  moveSpeed: 10
 --- !u!54 &925347531
 Rigidbody:
   m_ObjectHideFlags: 0
