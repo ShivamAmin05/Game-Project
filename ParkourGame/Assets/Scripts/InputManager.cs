@@ -15,7 +15,6 @@ public class InputManager : MonoBehaviour
     {
         playerInput = new PlayerInput();
         player = playerInput.Player;
-        // move = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
         move = GetComponent<PlayerMovement>();
         player.Jump.performed += ctx => move.Jump();
