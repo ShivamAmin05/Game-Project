@@ -8,6 +8,13 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     
     [SerializeField]Transform orientation; 
+<<<<<<< HEAD
+=======
+    [SerializeField]float moveMultiplier;
+    [SerializeField]float airMoveMultiplier;
+    [SerializeField] float groundDrag;
+    [SerializeField] float airDrag;
+>>>>>>> parent of cfd164a2 (Push)
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -20,8 +27,17 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         
     }
+<<<<<<< HEAD
     private void Update() {
      
+=======
+    private void ControlDrag()
+    {        
+        rb.drag = groundDrag;
+    }
+    private void Update() {
+        ControlDrag();
+>>>>>>> parent of cfd164a2 (Push)
     }
  
     public void MovePlayer(Vector2 input)
@@ -30,7 +46,11 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
+<<<<<<< HEAD
         rb.AddForce(moveDirection.normalized * moveSpeed * 1, ForceMode.Acceleration);
+=======
+        rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Acceleration);
+>>>>>>> parent of cfd164a2 (Push)
 
     }
 }
