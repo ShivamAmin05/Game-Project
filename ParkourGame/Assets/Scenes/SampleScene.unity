@@ -637,7 +637,6 @@ MonoBehaviour:
   airMoveMultiplier: 2
   groundDrag: 10
   airDrag: 2
-  jumpForce: 10
   moveSpeed: 10
 --- !u!54 &925347531
 Rigidbody:
@@ -962,7 +961,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12b1d7806bb305c4da17dbdcaa59ecf3, type: 2}
+  - {fileID: 2100000, guid: 061597e6ad7e84126aad7c65a4b5a924, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
