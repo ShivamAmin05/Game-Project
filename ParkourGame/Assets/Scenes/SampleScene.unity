@@ -609,7 +609,19 @@ MonoBehaviour:
     m_ActionId: 68a50418-cea9-41a6-a442-b34da61e84b0
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 925347530}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1c8ac143-fa57-4bd5-8a38-0cb249b2db0e
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -636,9 +648,9 @@ MonoBehaviour:
   orientation: {fileID: 13858877}
   moveMultiplier: 10
   airMoveMultiplier: 2
-  groundDrag: 10
+  groundDrag: 3
   airDrag: 2
-  jumpForce: 10
+  jumpForce: 5
   moveSpeed: 10
 --- !u!54 &925347531
 Rigidbody:
