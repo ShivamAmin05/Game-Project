@@ -238,6 +238,7 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Events/MessageListeners/UIEventsInterfacesListeners/UnityOnPointerClickMessageListener.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Reflection/Operators/BinaryOperatorHandler.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Graphs/GraphSource.cs" />
+     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Utilities/IAnalyticsIdentifiable.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Variables/IGraphDataWithVariables.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Serialization/Converters/LooseAssemblyNameConverter.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Exceptions/UnexpectedEnumValueException.cs" />
@@ -461,7 +462,6 @@
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Reflection/Optimization/InstancePropertyAccessor.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Events/MessageListeners/MonoBehaviourMessageListeners/UnityOnTriggerExit2DMListener.cs" />
      <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Events/MessageListeners/UIEventsListeners/UnityOnSliderValueChangedMessageListener.cs" />
-     <Compile Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Utilities/IAnalyticsIdentifiable.cs" />
      <None Include="Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Core/Unity.VisualScripting.Core.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>/opt/homebrew/2021.3.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
