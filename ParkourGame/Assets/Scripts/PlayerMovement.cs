@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
 
     [Header("Movement")]
-    public float moveSpeed = 8f;
+    public float moveSpeed;
 
     private void Start() {
         
