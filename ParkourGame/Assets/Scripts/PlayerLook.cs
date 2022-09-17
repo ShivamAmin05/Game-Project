@@ -24,7 +24,9 @@ public class PlayerLook : MonoBehaviour
 
         yRotation += xInput * xSens * camMultiplier;
         xRotation -= yInput * ySens * camMultiplier;
+        // prevents the player from looking more than 90 degrees up or down
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0,yRotation,0);
     }

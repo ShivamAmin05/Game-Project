@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance;
+   
     public bool isGrounded;
 
     [Header("Movement")]
@@ -38,9 +39,20 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = airDrag;
         }
     }
+    // private void speedControl()
+    // {
+    //     Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+    //     if(flatVel.magnitude > moveSpeed)
+    //     {
+    //         Vector3 limitedVel = flatVel.normalized * moveSpeed;
+    //         rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+    //     }
+    // }
     private void Update() {
         ControlDrag();
+        // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        print(rb.velocity);
     }
  
     public void MovePlayer(Vector2 input)
@@ -51,12 +63,12 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
-            rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Force);
         }
         else
         {
             moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
-            rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
         }
         
     }
