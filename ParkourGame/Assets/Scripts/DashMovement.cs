@@ -27,6 +27,7 @@ public class DashMovement : MonoBehaviour
     {
         if(movement.isGrounded == false)
         {
+            // diveded dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
             {
                 Vector3 dashingForce = orientation.forward * dashForce + orientation.up * dashUpwardForce;
