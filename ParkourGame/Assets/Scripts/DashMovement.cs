@@ -27,7 +27,7 @@ public class DashMovement : MonoBehaviour
     {
         if(movement.isGrounded == false)
         {
-            if(dashNum < setDashes)
+            if(dashNum/3 < setDashes)
             {
                 Vector3 dashingForce = orientation.forward * dashForce + orientation.up * dashUpwardForce;
                 rb.AddForce(dashingForce, ForceMode.Impulse);
