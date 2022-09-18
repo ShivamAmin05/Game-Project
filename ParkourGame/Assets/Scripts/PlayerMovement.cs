@@ -6,20 +6,20 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     Rigidbody rb;
-    
     [SerializeField]Transform orientation; 
+    
+    [Header("Movement")]
+    public float moveSpeed;
     [SerializeField] float moveMultiplier;
     [SerializeField] float airMoveMultiplier;
     [SerializeField] float groundDrag;
     [SerializeField] float airDrag;
     [SerializeField] float jumpForce;
-    [SerializeField] LayerMask groundMask;
-    [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance;
     public bool isGrounded;
+    [SerializeField] LayerMask groundMask;
+    [SerializeField] Transform groundCheck;
 
-    [Header("Movement")]
-    public float moveSpeed;
 
     private void Start() {
         
