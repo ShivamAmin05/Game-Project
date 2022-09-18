@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        print(rb.velocity);
+        print(rb.velocity.magnitude);
     }
  
     public void MovePlayer(Vector2 input)
@@ -59,14 +59,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;
+        moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
         if(isGrounded)
         {
-            moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
             rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Force);
         }
         else
         {
-            moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
             rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
         }
         
