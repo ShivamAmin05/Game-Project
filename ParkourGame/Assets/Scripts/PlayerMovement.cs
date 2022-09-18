@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        print(rb.velocity.magnitude);
+        // print(rb.velocity.magnitude);
     }
  
     public void MovePlayer(Vector2 input)

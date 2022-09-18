@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     private PlayerLook look;
     private WallRunning wallRun;
     private DashMovement dash;
+
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -19,7 +20,7 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         move = GetComponent<PlayerMovement>();
         wallRun = GetComponent<WallRunning>();
-        dash = GetComponent<DashMovement>();
+
         
         player.Jump.performed += ctx => move.Jump();
         player.Jump.performed += ctx => wallRun.WallJump();

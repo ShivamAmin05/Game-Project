@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using UnityEngine.InputSystem;
 
 public class DashMovement : MonoBehaviour
 {
+    // public InputAction playerControls;
+    // public PlayerInput playerInput;
+    // public PlayerInput.PlayerActions player;
     public Transform orientation;
     public Transform camPos;
     public Camera playerCam;
@@ -21,20 +25,28 @@ public class DashMovement : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float dashFov;
 
+    private Vector3 direction = Vector2.zero;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<PlayerMovement>();
     }
+    private void Update()
+    {
+        
+        direction = getDirection();
+        // moveDirection = player.Movement.ReadValue<Vector2>();  
+        if(movement.isGrounded)
+        {
+            dashNum = 0;
+        }
+    }   
 
     public void Dash()
-    {
-        Transform forwardT;
-        
-        forwardT = camPos;
-        
-        Vector3 direction = getDirection(forwardT);
+    { 
         if(movement.isGrounded == false)
         {
             // diveded dashNum by 3 because every time dash is called unity increments dashNum by 3
@@ -49,32 +61,35 @@ public class DashMovement : MonoBehaviour
         else
         {
             cam.fieldOfView = dashFov;
-            Vector3 dashingForce = orientation.forward * dashForce * groundDashMultiplier;
+            Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
+            // print(dashingForce);
             rb.AddForce(dashingForce, ForceMode.Impulse);
         }
         
     }
-    public Vector3 getDirection(Transform forwardT)
+    public Vector3 getDirection()
     {
         
         Vector3 direction = new Vector3();
-        if(movement.moveDirection.z == 0 && movement.moveDirection.x == 0)
-        {
-            direction = forwardT.forward;
-        }
-        else
-        {
-            direction = forwardT.forward * movement.moveDirection.z + forwardT.right * movement.moveDirection.x;
-        }
+        // if(movement.moveDirection.x == 0 && movement.moveDirection.y == 0)
+        // {
+            direction = camPos.forward;
+            // print(direction);
+        // else
+        // {
+        //     direction = orientation.forward * movement.moveDirection.z + orientation.right * movement.moveDirection.x;
+        //     print(orientation.forward);
+        // }
         return direction.normalized;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(movement.isGrounded)
-        {
-            dashNum = 0;
-        }
-    }   
+    // void OnEnable()
+    // {
+    //     playerControls.Enable();
+    // }
+    // void OnDisable()
+    // {
+    //     playerControls.Disable()
+    // }
 }
