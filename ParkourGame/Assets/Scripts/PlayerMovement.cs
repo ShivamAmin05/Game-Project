@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
+    public Vector3 moveDirection;
 
 
     private void Start() {
@@ -56,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
  
     public void MovePlayer(Vector2 input)
     {
-        Vector3 moveDirection = Vector3.zero;
+        moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;

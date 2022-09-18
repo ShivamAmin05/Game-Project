@@ -5,6 +5,7 @@ using UnityEngine;
 public class DashMovement : MonoBehaviour
 {
     public Transform orientation;
+    public Transform camPos;
     public Camera playerCam;
     private Rigidbody rb;
     private PlayerMovement movement;
@@ -16,8 +17,7 @@ public class DashMovement : MonoBehaviour
     [SerializeField] int setDashes;
     private int dashNum;
 
-
-     [Header("Camera")]
+    [Header("Camera")]
     [SerializeField] Camera cam;
     [SerializeField] float dashFov;
 
@@ -30,13 +30,18 @@ public class DashMovement : MonoBehaviour
 
     public void Dash()
     {
+        Transform forwardT;
+        
+        forwardT = camPos;
+        
+        Vector3 direction = getDirection(forwardT);
         if(movement.isGrounded == false)
         {
             // diveded dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
             {
                 cam.fieldOfView = dashFov;
-                Vector3 dashingForce = orientation.forward * dashForce + orientation.up * dashUpwardForce;
+                Vector3 dashingForce = direction * dashForce + orientation.up * dashUpwardForce;
                 rb.AddForce(dashingForce, ForceMode.Impulse);
                 dashNum++;
             }
@@ -49,6 +54,20 @@ public class DashMovement : MonoBehaviour
         }
         
     }
+    public Vector3 getDirection(Transform forwardT)
+    {
+        
+        Vector3 direction = new Vector3();
+        if(movement.moveDirection.z == 0 && movement.moveDirection.x == 0)
+        {
+            direction = forwardT.forward;
+        }
+        else
+        {
+            direction = forwardT.forward * movement.moveDirection.z + forwardT.right * movement.moveDirection.x;
+        }
+        return direction.normalized;
+    }
 
     // Update is called once per frame
     void Update()
@@ -57,6 +76,5 @@ public class DashMovement : MonoBehaviour
         {
             dashNum = 0;
         }
-        // print(dashNum);
     }   
 }

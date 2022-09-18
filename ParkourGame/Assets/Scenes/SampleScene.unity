@@ -1002,18 +1002,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 13858877}
+  moveSpeed: 10
   moveMultiplier: 10
   airMoveMultiplier: 0.3
   groundDrag: 10
   airDrag: 2
   jumpForce: 8
+  groundDistance: 0.4
+  isGrounded: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 8
   groundCheck: {fileID: 1104205963}
-  groundDistance: 0.4
-  isGrounded: 0
-  moveSpeed: 10
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!54 &925347531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1055,10 +1056,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 13858877}
+  camPos: {fileID: 963194228}
   playerCam: {fileID: 963194227}
   dashForce: 5
   groundDashMultiplier: 5
-  dashUpwardForce: 5
+  dashUpwardForce: 0
   setDashes: 2
   cam: {fileID: 963194227}
   dashFov: 100
