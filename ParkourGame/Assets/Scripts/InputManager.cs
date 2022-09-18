@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     public PlayerInput.PlayerActions player;
     private PlayerMovement move;
     private PlayerLook look;
+    private WallRunning wallRun;
 
     void Awake()
     {
@@ -17,7 +18,9 @@ public class InputManager : MonoBehaviour
         player = playerInput.Player;
         look = GetComponent<PlayerLook>();
         move = GetComponent<PlayerMovement>();
+        wallRun = GetComponent<WallRunning>();
         player.Jump.performed += ctx => move.Jump();
+        player.Jump.performed += ctx => wallRun.WallJump();
     }
 
     // Update is called once per frame

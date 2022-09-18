@@ -16,6 +16,11 @@ public class DashMovement : MonoBehaviour
     [SerializeField] int setDashes;
     private int dashNum;
 
+
+     [Header("Camera")]
+    [SerializeField] Camera cam;
+    [SerializeField] float dashFov;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +35,7 @@ public class DashMovement : MonoBehaviour
             // diveded dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
             {
+                cam.fieldOfView = dashFov;
                 Vector3 dashingForce = orientation.forward * dashForce + orientation.up * dashUpwardForce;
                 rb.AddForce(dashingForce, ForceMode.Impulse);
                 dashNum++;
@@ -37,6 +43,7 @@ public class DashMovement : MonoBehaviour
         }
         else
         {
+            cam.fieldOfView = dashFov;
             Vector3 dashingForce = orientation.forward * dashForce * groundDashMultiplier;
             rb.AddForce(dashingForce, ForceMode.Impulse);
         }
