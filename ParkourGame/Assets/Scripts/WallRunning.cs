@@ -7,6 +7,7 @@ public class WallRunning : MonoBehaviour
 {
     private Rigidbody rb;
     private PlayerMovement move;
+    private DashMovement dash;
     PlayerLook look;
     [SerializeField] Transform orientation;
     [Header("Wall Running")]
@@ -30,6 +31,7 @@ public class WallRunning : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         move = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
+        dash = GetComponent<DashMovement>();
     }
   
     public void CheckWall()
@@ -48,6 +50,7 @@ public class WallRunning : MonoBehaviour
             if (wallLeft || wallRight)
             {
                 StartWallRun();
+                dash.dashNum = 0;
             }
             else
             {

@@ -19,7 +19,7 @@ public class DashMovement : MonoBehaviour
     [SerializeField] float dashUpwardForce;
     // [SerializeField] float dashDuration;
     [SerializeField] int setDashes;
-    private int dashNum;
+    public int dashNum;
 
     [Header("Camera")]
     [SerializeField] Camera cam;
