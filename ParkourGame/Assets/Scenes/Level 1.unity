@@ -1059,6 +1059,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 1104205963}
   moveDirection: {x: 0, y: 0, z: 0}
+  playerAnimator: {fileID: 0}
 --- !u!54 &925347531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1324,7 +1325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.253}
+  m_LocalPosition: {x: 0, y: -0.115, z: 0.036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1626,7 +1627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202950336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.579, z: -0.052}
+  m_LocalPosition: {x: 0, y: 1.657, z: 0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
