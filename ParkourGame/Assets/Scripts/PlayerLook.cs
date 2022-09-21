@@ -9,6 +9,8 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] float ySens;
     public Transform orientation;
     public Camera playerCam;
+    public Transform Player;
+    public Transform playerBody;
     float xRotation;
     float yRotation;
     float camMultiplier = 0.1f;
@@ -32,6 +34,10 @@ public class PlayerLook : MonoBehaviour
         
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt);
         orientation.rotation = Quaternion.Euler(0,yRotation,0);
+
+        // Player.transform.rotation = Quaternion.Euler(xRotation,0f,0f);
+        playerBody.transform.rotation = Quaternion.Euler(0f,yRotation, 0f);
+        // playerBody.Rotate(orientation.up * xInput);
     }
 
     // Update is called once per frame

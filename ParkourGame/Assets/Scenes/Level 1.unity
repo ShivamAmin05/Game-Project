@@ -1125,6 +1125,8 @@ MonoBehaviour:
   ySens: 8
   orientation: {fileID: 13858877}
   playerCam: {fileID: 963194227}
+  Player: {fileID: 925347525}
+  playerBody: {fileID: 436967151}
   fov: 80
 --- !u!114 &925347538
 MonoBehaviour:

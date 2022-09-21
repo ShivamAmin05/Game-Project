@@ -20,12 +20,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
     public Vector3 moveDirection;
+    public Animator playerAnimator;
 
 
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        playerAnimator = GetComponent<Animator>();
         
     }
     private void ControlDrag()
