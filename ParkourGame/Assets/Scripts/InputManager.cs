@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
     void FixedUpdate()
     {
         move.MovePlayer(player.Movement.ReadValue<Vector2>());  
+        // print(move.moveDirection.x);
     }
     
     private void LateUpdate() 

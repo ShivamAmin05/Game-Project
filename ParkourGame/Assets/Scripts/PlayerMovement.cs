@@ -20,13 +20,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
     public Vector3 moveDirection;
-    private Animator playerAnimator;
+    // private Animator playerAnimator;
 
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        playerAnimator = GetComponent<Animator>();
+        moveDirection = Vector3.zero;
+        // playerAnimator = GetComponent<Animator>();
         
     }
     private void ControlDrag()
@@ -54,19 +55,19 @@ public class PlayerMovement : MonoBehaviour
         // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         // print(rb.velocity.magnitude);
-        if(moveDirection.x == 0 && moveDirection.z == 0)
-        {
-            playerAnimator.SetBool("isMoving", false);
-        }
-        else
-        {
-            playerAnimator.SetBool("isMoving", true);
-        }
+        // if(0 == 0 && 0 == 0)
+        // {
+        //     playerAnimator.SetBool("isMoving", true);
+        // }
+        // else
+        // {
+        //     playerAnimator.SetBool("isMoving", true);
+        // }
     }
  
     public void MovePlayer(Vector2 input)
     {
-        moveDirection = Vector3.zero;
+
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
