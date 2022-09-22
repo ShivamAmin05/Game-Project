@@ -20,8 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
     public Vector3 moveDirection;
-    public Animator playerAnimator;
-
+    private Animator playerAnimator;
 
     private void Start() {
         
@@ -55,6 +54,14 @@ public class PlayerMovement : MonoBehaviour
         // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         // print(rb.velocity.magnitude);
+        if(moveDirection.x == 0 && moveDirection.z == 0)
+        {
+            playerAnimator.SetBool("isMoving", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isMoving", true);
+        }
     }
  
     public void MovePlayer(Vector2 input)

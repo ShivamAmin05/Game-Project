@@ -414,30 +414,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 6522adcc92ab5407eb5329934a8e39bb, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1
-  m_Height: 2
+  m_Radius: 0.6
+  m_Height: 2.2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &436967153
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436967150}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 32799fa89d90947c9bdc1a4e87e53f37, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &520175632
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +916,7 @@ GameObject:
   - component: {fileID: 925347538}
   - component: {fileID: 925347536}
   - component: {fileID: 925347537}
+  - component: {fileID: 925347539}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1059,7 +1040,6 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 1104205963}
   moveDirection: {x: 0, y: 0, z: 0}
-  playerAnimator: {fileID: 0}
 --- !u!54 &925347531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1142,15 +1122,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 13858877}
-  wallDistance: 3
+  wallDistance: 1
   minimumJumpHeight: 1.5
-  wallRunGravity: 0.2
+  wallRunGravity: 1
   wallRunJumpForce: 5
   cam: {fileID: 963194227}
   wallFov: 110
   FovTransition: 0.5
   camTilt: 30
   camTiltTime: 3
+--- !u!95 &925347539
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925347524}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32799fa89d90947c9bdc1a4e87e53f37, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &925790586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,7 +1297,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.4
   far clip plane: 1000
   field of view: 80
   orthographic: 0
@@ -1325,7 +1325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.115, z: 0.036}
+  m_LocalPosition: {x: 0, y: -0.115, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1627,7 +1627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202950336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.657, z: 0.024}
+  m_LocalPosition: {x: 0, y: 1.657, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1879,9 +1879,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7813590141776298306, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
       propertyPath: m_Name
-      value: Idle
+      value: PlayerBody
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822821947120931875, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 32799fa89d90947c9bdc1a4e87e53f37, type: 2}
+    - target: {fileID: 5866666021909216657, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e97a046f31ce44bd0ac9835045c206fe, type: 3}
