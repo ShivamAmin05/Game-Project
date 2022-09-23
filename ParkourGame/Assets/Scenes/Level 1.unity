@@ -1121,7 +1121,7 @@ MonoBehaviour:
   dashForce: 5
   groundDashMultiplier: 5
   dashUpwardForce: 0
-  setDashes: 2
+  setDashes: 1
   dashNum: 0
   cam: {fileID: 963194227}
   dashFov: 100
