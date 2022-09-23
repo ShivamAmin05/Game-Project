@@ -21,13 +21,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck;
     public Vector3 moveDirection;
     private Animator playerAnimator;
+    public bool isJumping;
+    GameObject playerBody;
 
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         moveDirection = Vector3.zero;
-        playerAnimator = GetComponent<Animator>();
+        playerBody = GameObject.Find("PlayerBody");
+        playerAnimator = playerBody.GetComponent<Animator>();
         
     }
     private void ControlDrag()
@@ -67,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
  
     public void MovePlayer(Vector2 input)
     {
-
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
