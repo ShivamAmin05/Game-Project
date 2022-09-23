@@ -20,14 +20,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] Transform groundCheck;
     public Vector3 moveDirection;
-    // private Animator playerAnimator;
+    private Animator playerAnimator;
 
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         moveDirection = Vector3.zero;
-        // playerAnimator = GetComponent<Animator>();
+        playerAnimator = GetComponent<Animator>();
         
     }
     private void ControlDrag()
@@ -87,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x,0,rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            playerAnimator.SetBool("isJumping", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isJumping", false);    
         }
     }
 }
