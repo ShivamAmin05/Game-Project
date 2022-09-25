@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     private PlayerLook look;
     private WallRunning wallRun;
     private DashMovement dash;
+    GameObject camHolder;
 
     void Awake()
     {
@@ -20,9 +21,6 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
         move = GetComponent<PlayerMovement>();
         wallRun = GetComponent<WallRunning>();
-
-        
-        player.Jump.performed += ctx => move.Jump();
         player.Jump.performed += ctx => wallRun.WallJump();
     }
 
@@ -30,7 +28,6 @@ public class InputManager : MonoBehaviour
     void FixedUpdate()
     {
         move.MovePlayer(player.Movement.ReadValue<Vector2>());  
-        // print(move.moveDirection.x);
     }
     
     private void LateUpdate() 

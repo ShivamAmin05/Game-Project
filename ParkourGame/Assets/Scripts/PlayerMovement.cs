@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Rigidbody rb;
     [Header("References")]
-    Rigidbody rb;
     [SerializeField]Transform orientation; 
+    [SerializeField] LayerMask groundMask;
+    [SerializeField] Transform groundCheck;
+    private Animator playerAnimator;
+    private GameObject playerBody;
     
     [Header("Movement")]
     public float moveSpeed;
@@ -16,14 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float airDrag;
     [SerializeField] float jumpForce;
     [SerializeField] float groundDistance;
+    private Vector3 moveDirection;
     public bool isGrounded;
-    [SerializeField] LayerMask groundMask;
-    [SerializeField] Transform groundCheck;
-    public Vector3 moveDirection;
-    private Animator playerAnimator;
-    public bool isJumping;
-    GameObject playerBody;
-
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
@@ -57,15 +55,6 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        // print(rb.velocity.magnitude);
-        // if(0 == 0 && 0 == 0)
-        // {
-        //     playerAnimator.SetBool("isMoving", true);
-        // }
-        // else
-        // {
-        //     playerAnimator.SetBool("isMoving", true);
-        // }
     }
  
     public void MovePlayer(Vector2 input)
@@ -73,13 +62,21 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
-        if(isGrounded)
+        if(moveDirection.x != 0 && moveDirection.z != 0)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Force);
+            playerAnimator.SetBool("isMoving", true);
+            if(isGrounded)
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Force);
+            }
+            else
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
+            }
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
+            playerAnimator.SetBool("isMoving", false);
         }
         
     }

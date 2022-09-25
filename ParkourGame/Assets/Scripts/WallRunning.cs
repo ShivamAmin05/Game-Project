@@ -8,34 +8,34 @@ public class WallRunning : MonoBehaviour
     private Rigidbody rb;
     private PlayerMovement move;
     private DashMovement dash;
-    PlayerLook look;
+    private PlayerLook look;
+    [Header("References")]
     [SerializeField] Transform orientation;
+    private GameObject playerBody;
     [Header("Wall Running")]
     [SerializeField] float wallDistance;
     [SerializeField] float minimumJumpHeight;
     [SerializeField] float wallRunGravity;
     [SerializeField] float wallRunJumpForce;
-    bool wallLeft = false;
-    bool wallRight = false;
-    RaycastHit leftWallHit;
-    RaycastHit rightWallHit;
+    private bool wallLeft;
+    private bool wallRight;
+    private RaycastHit leftWallHit;
+    private RaycastHit rightWallHit;
     [Header("Camera")]
     [SerializeField] Camera cam;
     [SerializeField] float wallFov;
     [SerializeField] float FovTransition;
     [SerializeField] float camTilt;
-    public float charTilt;
+    // public float charTilt;
     [SerializeField] float camTiltTime;
     public float tilt {get; private set; }
     // Animator playerAnimator;
-    GameObject playerBody;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
         move = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
         dash = GetComponent<DashMovement>();
-        playerBody = GameObject.Find("PlayerBody");
     }
   
     public void CheckWall()
@@ -91,18 +91,18 @@ public class WallRunning : MonoBehaviour
     {
         if(!move.isGrounded)
         {
-        if(wallLeft)
-        {
-            Vector3 wallRunJumpDistance = transform.up + leftWallHit.normal;
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce (wallRunJumpDistance * wallRunJumpForce * 100,ForceMode.Force);
-        }
-        else if(wallRight)
-        {
-            Vector3 wallRunJumpDistance = transform.up + rightWallHit.normal;
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce (wallRunJumpDistance * wallRunJumpForce * 100,ForceMode.Force);
-        }
+            if(wallLeft)
+            {
+                Vector3 wallRunJumpDistance = transform.up + leftWallHit.normal;
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                rb.AddForce (wallRunJumpDistance * wallRunJumpForce * 100,ForceMode.Force);
+            }
+            else if(wallRight)
+            {
+                Vector3 wallRunJumpDistance = transform.up + rightWallHit.normal;
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                rb.AddForce (wallRunJumpDistance * wallRunJumpForce * 100,ForceMode.Force);
+            }
         }
     }
     public void StopWallRun()
@@ -111,7 +111,7 @@ public class WallRunning : MonoBehaviour
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, look.fov, FovTransition * Time.deltaTime);
         tilt = Mathf.Lerp(tilt,0,camTiltTime * Time.deltaTime);
         // playerAnimator.SetBool("isWallRun", false);
-        charTilt = 0;
+        // charTilt = 0;
     }
 
 }
