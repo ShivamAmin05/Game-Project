@@ -26,6 +26,8 @@ public class DashMovement : MonoBehaviour
     [SerializeField] float dashFov;
 
     private Vector3 direction = Vector2.zero;
+    Animator playerAnimator;
+    GameObject playerBody;
 
 
     // Start is called before the first frame update
@@ -33,6 +35,8 @@ public class DashMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<PlayerMovement>();
+        playerBody = GameObject.Find("PlayerBody");
+        playerAnimator = playerBody.GetComponent<Animator>();
     }
     private void Update()
     {
@@ -47,6 +51,7 @@ public class DashMovement : MonoBehaviour
 
     public void Dash()
     { 
+        // playerAnimator.ResetTrigger("Dash");
         if(movement.isGrounded == false)
         {
             // diveded dashNum by 3 because every time dash is called unity increments dashNum by 3
@@ -64,6 +69,8 @@ public class DashMovement : MonoBehaviour
             Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
             // print(dashingForce);
             rb.AddForce(dashingForce, ForceMode.Impulse);
+            print("slide");
+            playerAnimator.SetTrigger("Dash");
         }
         
     }

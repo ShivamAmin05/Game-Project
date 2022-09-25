@@ -29,13 +29,15 @@ public class WallRunning : MonoBehaviour
     // public float charTilt;
     [SerializeField] float camTiltTime;
     public float tilt {get; private set; }
-    // Animator playerAnimator;
+    Animator playerAnimator;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
         move = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
         dash = GetComponent<DashMovement>();
+        playerBody = GameObject.Find("PlayerBody");
+        playerAnimator = playerBody.GetComponent<Animator>();
     }
   
     public void CheckWall()
@@ -74,14 +76,14 @@ public class WallRunning : MonoBehaviour
         if(wallLeft)
         {
             tilt = Mathf.Lerp(tilt,-camTilt,camTiltTime * Time.deltaTime);
-            // playerAnimator.SetBool("isWallRun", true);
+            playerAnimator.SetBool("isWallRun", true);
             // playerBody.transform.rotation = Quaternion.Euler(45f,0f, 0f);
             // charTilt = 25;
         }
         if (wallRight)
         {
             tilt = Mathf.Lerp(tilt,camTilt,camTiltTime * Time.deltaTime);
-            // playerAnimator.SetBool("isWallRun", true);
+            playerAnimator.SetBool("isWallRun", true);
             // charTilt = 25;
         }
        
@@ -110,7 +112,7 @@ public class WallRunning : MonoBehaviour
         rb.useGravity = true;
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, look.fov, FovTransition * Time.deltaTime);
         tilt = Mathf.Lerp(tilt,0,camTiltTime * Time.deltaTime);
-        // playerAnimator.SetBool("isWallRun", false);
+        playerAnimator.SetBool("isWallRun", false);
         // charTilt = 0;
     }
 

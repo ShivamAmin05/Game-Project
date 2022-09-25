@@ -55,6 +55,14 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         // speedControl(); 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if(isGrounded)
+        {
+            playerAnimator.SetBool("isGrounded",true);
+        }
+        else 
+        {
+            playerAnimator.SetBool("isGrounded",false);
+        }
     }
  
     public void MovePlayer(Vector2 input)
