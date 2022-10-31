@@ -67,13 +67,19 @@ public class DashMovement : MonoBehaviour
         {
             cam.fieldOfView = dashFov;
             Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
-            // print(dashingForce);
+
             rb.AddForce(dashingForce, ForceMode.Impulse);
-            print("slide");
-            playerAnimator.SetTrigger("Dash");
+        
+            playerAnimator.SetBool("isDashing", true);
+            Invoke("ResetDashAnimation", 1f);
         }
         
     }
+    public void ResetDashAnimation()
+    {
+        playerAnimator.SetBool("isDashing", false);
+    }
+
     public Vector3 getDirection()
     {
         
