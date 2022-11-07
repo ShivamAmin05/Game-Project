@@ -8225,6 +8225,7 @@ MonoBehaviour:
   airDrag: 2
   jumpForce: 8
   groundDistance: 0.4
+  moveDirection: {x: 0, y: 0, z: 0}
   isGrounded: 0
 --- !u!54 &925347531
 Rigidbody:
@@ -8270,8 +8271,8 @@ MonoBehaviour:
   camPos: {fileID: 963194228}
   playerCam: {fileID: 963194227}
   dashForce: 5
-  groundDashMultiplier: 5
-  dashUpwardForce: 0
+  groundDashMultiplier: 20
+  dashUpwardForce: 10
   setDashes: 1
   dashNum: 0
   cam: {fileID: 963194227}
