@@ -8196,6 +8196,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7946bd22-25c9-4d0a-9aca-d1ff5e26be62
     m_ActionName: Player/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c6e51e5-c009-4ee7-937d-2825ebf5f062
+    m_ActionName: Player/Crouch[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -8219,6 +8223,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 1104205963}
   moveSpeed: 10
+  crouchSpeed: 0
   moveMultiplier: 10
   airMoveMultiplier: 0.3
   groundDrag: 10

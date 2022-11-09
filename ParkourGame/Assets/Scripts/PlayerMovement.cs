@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Movement")]
     public float moveSpeed;
+    public float crouchSpeed;
     [SerializeField] float moveMultiplier;
     [SerializeField] float airMoveMultiplier;
     [SerializeField] float groundDrag;
@@ -42,14 +43,6 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = airDrag;
         }
     }
-    // private void speedControl()
-    // {
-    //     Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-    //     if(flatVel.magnitude > moveSpeed)
-    //     {
-    //         Vector3 limitedVel = flatVel.normalized * moveSpeed;
-    //         rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-    //     }
     // }
     private void Update() {
         ControlDrag();
@@ -86,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isMoving", false);
         }
-        
     }
     public void Jump()
     {
