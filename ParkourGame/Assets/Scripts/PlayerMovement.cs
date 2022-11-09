@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float airDrag;
     [SerializeField] float jumpForce;
     [SerializeField] float groundDistance;
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
     public bool isGrounded;
     private void Start() {
         

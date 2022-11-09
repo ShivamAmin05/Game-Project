@@ -82,17 +82,16 @@ public class DashMovement : MonoBehaviour
 
     public Vector3 getDirection()
     {
-        
         Vector3 direction = new Vector3();
-        // if(movement.moveDirection.x == 0 && movement.moveDirection.y == 0)
-        // {
+        if(movement.isGrounded)
+        {
+            direction = orientation.forward;
+        }
+        else
+        {
             direction = camPos.forward;
-            // print(direction);
-        // else
-        // {
-        //     direction = orientation.forward * movement.moveDirection.z + orientation.right * movement.moveDirection.x;
-        //     print(orientation.forward);
-        // }
+
+        }
         return direction.normalized;
     }
 
