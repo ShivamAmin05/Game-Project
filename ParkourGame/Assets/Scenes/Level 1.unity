@@ -8271,8 +8271,8 @@ MonoBehaviour:
   camPos: {fileID: 963194228}
   playerCam: {fileID: 963194227}
   dashForce: 5
-  groundDashMultiplier: 20
-  dashUpwardForce: 10
+  groundDashMultiplier: 5
+  dashUpwardForce: 0
   setDashes: 1
   dashNum: 0
   cam: {fileID: 963194227}
