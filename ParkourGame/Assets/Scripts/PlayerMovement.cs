@@ -95,8 +95,4 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetBool("isJumping", false);    
         }
     }
-    public void Crouch(bool crouch)
-    {
-        crouchMultiplier = 0.1f;
-    }
 }
