@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 178459588}
   - component: {fileID: 178459587}
   - component: {fileID: 178459586}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +540,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-19370
+  m_Name: pb_Mesh27014
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   playerCam: {fileID: 1203652323}
   dashForce: 5
   groundDashMultiplier: 20
-  dashUpwardForce: 10
+  dashUpwardForce: 0
   setDashes: 1
   dashNum: 0
   cam: {fileID: 1203652323}
@@ -1318,6 +1318,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 1820341350}
   moveSpeed: 10
+  crouchMultiplier: 1
   moveMultiplier: 10
   airMoveMultiplier: 0.3
   groundDrag: 10
@@ -1403,6 +1404,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7946bd22-25c9-4d0a-9aca-d1ff5e26be62
     m_ActionName: Player/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c6e51e5-c009-4ee7-937d-2825ebf5f062
+    m_ActionName: Player/Crouch[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1432,7 +1437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095391103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1449,7 +1454,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-16584
+  m_Name: pb_Mesh27030
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

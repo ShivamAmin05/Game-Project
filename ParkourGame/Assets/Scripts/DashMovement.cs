@@ -82,7 +82,7 @@ public class DashMovement : MonoBehaviour
             hitBox.height = 0.5f;
             Invoke("ResetDashAnimation", 1f);
             yield return new WaitForSeconds(0.6f);
-            // hitBox.height = 1.9f; 
+            hitBox.height = 1.9f; 
         }
     }
     public void ResetDashAnimation()
