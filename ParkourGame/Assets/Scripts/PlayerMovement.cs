@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Movement")]
     public float moveSpeed;
-    public float crouchSpeed;
+    public float crouchMultiplier;
     [SerializeField] float moveMultiplier;
     [SerializeField] float airMoveMultiplier;
     [SerializeField] float groundDrag;
@@ -46,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
     // }
     private void Update() {
         ControlDrag();
-        // speedControl(); 
+        // speedControl();
+        // crouchMultiplier = 1;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(isGrounded)
         {
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isGrounded",false);
         }
+
     }
  
     public void MovePlayer(Vector2 input)
@@ -68,11 +70,11 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetBool("isMoving", true);
             if(isGrounded)
             {
-                rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Force);
+                rb.AddForce(moveDirection.normalized * moveSpeed * crouchMultiplier * moveMultiplier, ForceMode.Force);
             }
             else
             {
-                rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
+                rb.AddForce(moveDirection.normalized * moveSpeed * crouchMultiplier * moveMultiplier * airMoveMultiplier, ForceMode.Force);
             }
         }
         else
@@ -92,5 +94,9 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isJumping", false);    
         }
+    }
+    public void Crouch(bool crouch)
+    {
+        crouchMultiplier = 0.1f;
     }
 }

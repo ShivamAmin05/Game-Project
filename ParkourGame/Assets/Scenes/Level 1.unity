@@ -8197,7 +8197,19 @@ MonoBehaviour:
     m_ActionId: 7946bd22-25c9-4d0a-9aca-d1ff5e26be62
     m_ActionName: Player/Dash[/Keyboard/leftShift]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 925347530}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Crouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7c6e51e5-c009-4ee7-937d-2825ebf5f062
     m_ActionName: Player/Crouch[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
@@ -8223,7 +8235,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 1104205963}
   moveSpeed: 10
-  crouchSpeed: 0
+  crouchMultiplier: 1
   moveMultiplier: 10
   airMoveMultiplier: 0.3
   groundDrag: 10
