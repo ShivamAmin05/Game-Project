@@ -27,6 +27,7 @@ public class DashMovement : MonoBehaviour
 
     private Vector3 direction = Vector2.zero;
     Animator playerAnimator;
+    CapsuleCollider hitBox;
     GameObject playerBody;
 
 
@@ -37,6 +38,7 @@ public class DashMovement : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
+        hitBox = playerBody.GetComponent<CapsuleCollider>();
     }
     private void Update()
     {
@@ -47,6 +49,7 @@ public class DashMovement : MonoBehaviour
         {
             dashNum = 0;
         }
+        
     }   
 
     public void Dash()
@@ -65,15 +68,22 @@ public class DashMovement : MonoBehaviour
         }
         else
         {
+            StartCoroutine(slide()); 
+        }
+    }
+    IEnumerator slide()
+    {
+        for(int i = 0; i < 1; i++)
+        {
             cam.fieldOfView = dashFov;
             Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
-
             rb.AddForce(dashingForce, ForceMode.Impulse);
-        
             playerAnimator.SetBool("isDashing", true);
+            hitBox.height = 0.5f;
             Invoke("ResetDashAnimation", 1f);
+            yield return new WaitForSeconds(0.6f);
+            // hitBox.height = 1.9f; 
         }
-        
     }
     public void ResetDashAnimation()
     {

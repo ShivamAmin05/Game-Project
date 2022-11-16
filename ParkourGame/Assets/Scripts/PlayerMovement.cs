@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Movement")]
     public float moveSpeed;
+    public float crouchMultiplier;
     [SerializeField] float moveMultiplier;
     [SerializeField] float airMoveMultiplier;
     [SerializeField] float groundDrag;
@@ -42,18 +43,11 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = airDrag;
         }
     }
-    // private void speedControl()
-    // {
-    //     Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-    //     if(flatVel.magnitude > moveSpeed)
-    //     {
-    //         Vector3 limitedVel = flatVel.normalized * moveSpeed;
-    //         rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-    //     }
     // }
     private void Update() {
         ControlDrag();
-        // speedControl(); 
+        // speedControl();
+        // crouchMultiplier = 1;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(isGrounded)
         {
@@ -63,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isGrounded",false);
         }
+
     }
  
     public void MovePlayer(Vector2 input)
@@ -75,18 +70,17 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetBool("isMoving", true);
             if(isGrounded)
             {
-                rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier, ForceMode.Force);
+                rb.AddForce(moveDirection.normalized * moveSpeed * crouchMultiplier * moveMultiplier, ForceMode.Force);
             }
             else
             {
-                rb.AddForce(moveDirection.normalized * moveSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
+                rb.AddForce(moveDirection.normalized * moveSpeed * crouchMultiplier * moveMultiplier * airMoveMultiplier, ForceMode.Force);
             }
         }
         else
         {
             playerAnimator.SetBool("isMoving", false);
         }
-        
     }
     public void Jump()
     {
