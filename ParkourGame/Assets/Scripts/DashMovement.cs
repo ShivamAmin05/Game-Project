@@ -64,6 +64,8 @@ public class DashMovement : MonoBehaviour
                 Vector3 dashingForce = direction * dashForce + orientation.up * dashUpwardForce;
                 rb.AddForce(dashingForce, ForceMode.Impulse);
                 dashNum++;
+                playerAnimator.SetBool("isAirdashing",true);
+                Invoke("ResetDashAnimation", 1f);
             }
         }
         else
@@ -88,6 +90,7 @@ public class DashMovement : MonoBehaviour
     public void ResetDashAnimation()
     {
         playerAnimator.SetBool("isDashing", false);
+        playerAnimator.SetBool("isAirDashing", false);
     }
 
     public Vector3 getDirection()
