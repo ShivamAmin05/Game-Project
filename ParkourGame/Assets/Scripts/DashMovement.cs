@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using UnityEngine.InputSystem;
 
 public class DashMovement : MonoBehaviour
 {
-    // public InputAction playerControls;
-    // public PlayerInput playerInput;
-    // public PlayerInput.PlayerActions player;
     public Transform orientation;
     public Transform camPos;
     public Camera playerCam;
     private Rigidbody rb;
     private PlayerMovement movement;
 
+    [Header("Dash")]
+    public float dashHeight;
+    public float dashRadius;
     [SerializeField] float dashForce;
     [SerializeField] float groundDashMultiplier;
     [SerializeField] float dashUpwardForce;
-    // [SerializeField] float dashDuration;
     [SerializeField] int setDashes;
+    [SerializeField] float slideTimer;
     public int dashNum;
 
     [Header("Camera")]
@@ -42,22 +41,18 @@ public class DashMovement : MonoBehaviour
     }
     private void Update()
     {
-        
         direction = getDirection();
-        // moveDirection = player.Movement.ReadValue<Vector2>();  
         if(movement.isGrounded)
         {
             dashNum = 0;
         }
-        
     }   
 
     public void Dash()
     { 
-        // playerAnimator.ResetTrigger("Dash");
         if(movement.isGrounded == false)
         {
-            // diveded dashNum by 3 because every time dash is called unity increments dashNum by 3
+            // divided dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
             {
                 cam.fieldOfView = dashFov;
@@ -65,45 +60,53 @@ public class DashMovement : MonoBehaviour
                 rb.AddForce(dashingForce, ForceMode.Impulse);
                 dashNum++;
                 playerAnimator.SetBool("isAirDashing", true);
-                Invoke("ResetDashAnimation", 0.5f);
+                Invoke("ResetDash", 1f);
             }
         }
         else
         {
-            StartCoroutine(slide()); 
+            startSlide();
         }
     }
-    IEnumerator slide()
+    public void startSlide()
     {
-        for(int i = 0; i < 1; i++)
-        {
-            cam.fieldOfView = dashFov;
-            Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
-            rb.AddForce(dashingForce, ForceMode.Impulse);
-            playerAnimator.SetBool("isDashing", true);
-            hitBox.height = 0.5f;
-            Invoke("ResetDashAnimation", 1f);
-            yield return new WaitForSeconds(0.6f);
-            hitBox.height = 1.9f; 
-        }
+        // slideTimer -= Time.deltaTime;
+        cam.fieldOfView = dashFov;
+        Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
+        rb.AddForce(dashingForce, ForceMode.Impulse);
+        playerAnimator.SetBool("isDashing", true);
+        hitBox.height = dashHeight;
+        hitBox.radius = dashRadius;
+        hitBox.center = new Vector3(0f,0.2f,0f);
+        // if(slideTimer == 0)
+        // {
+        // movement.moveSpeed *= slideTimer;
+        Invoke("ResetDash", 1.4f);
+        // }
     }
-    public void ResetDashAnimation()
+    public void ResetDash()
     {
         playerAnimator.SetBool("isDashing", false);
         playerAnimator.SetBool("isAirDashing", false);
+        hitBox.height = movement.standHeight;
+        hitBox.radius = movement.standRadius;
+        hitBox.center = new Vector3(0f,0.8f,0f);
     }
 
     public Vector3 getDirection()
     {
         Vector3 direction = new Vector3();
-        if(movement.isGrounded)
+        if(movement.isGrounded && !movement.onSlope())
         {
-            direction = orientation.forward;
+            direction = movement.moveDirection;
+        }
+        else if(movement.isGrounded && movement.onSlope())
+        {
+            direction = movement.getSlopeMoveDirection();
         }
         else
         {
             direction = camPos.forward;
-
         }
         return direction.normalized;
     }

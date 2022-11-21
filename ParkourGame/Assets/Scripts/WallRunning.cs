@@ -11,6 +11,7 @@ public class WallRunning : MonoBehaviour
     private PlayerLook look;
     [Header("References")]
     [SerializeField] Transform orientation;
+    Animator playerAnimator;
     private GameObject playerBody;
     [Header("Wall Running")]
     [SerializeField] float wallDistance;
@@ -29,7 +30,6 @@ public class WallRunning : MonoBehaviour
     // public float charTilt;
     [SerializeField] float camTiltTime;
     public float tilt {get; private set; }
-    Animator playerAnimator;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
@@ -109,7 +109,6 @@ public class WallRunning : MonoBehaviour
     }
     public void StopWallRun()
     {
-        rb.useGravity = true;
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, look.fov, FovTransition * Time.deltaTime);
         tilt = Mathf.Lerp(tilt,0,camTiltTime * Time.deltaTime);
         playerAnimator.SetBool("isWallRunningLeft", false);

@@ -11,11 +11,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck;
     private Animator playerAnimator;
     private GameObject playerBody;
+    public float standHeight;
+    public float standRadius;
+    public float crouchHeight;
     
     [Header("Movement")]
-    public float moveSpeed;
-    public float crouchMultiplier;
+    public float currSpeed;
+    public float standSpeed;
+    public float crouchSpeed;
     [SerializeField] float moveMultiplier;
+    [SerializeField] float slopeMultiplier;
     [SerializeField] float airMoveMultiplier;
     [SerializeField] float groundDrag;
     [SerializeField] float airDrag;
@@ -23,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float groundDistance;
     public Vector3 moveDirection;
     public bool isGrounded;
+    [Header("Slopes")]
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
@@ -30,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = Vector3.zero;
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
-        
+        currSpeed = standSpeed;
     }
     private void ControlDrag()
     {   
@@ -43,11 +51,22 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = airDrag;
         }
     }
-    // }
+    
+    public bool onSlope()
+        {
+            if(Physics.Raycast(transform.position, Vector3.down,out slopeHit, 1.4f));
+            {
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                return (angle < maxSlopeAngle && angle != 0);
+            }
+        }
+    public Vector3 getSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection,slopeHit.normal).normalized;
+    }
     private void Update() {
         ControlDrag();
-        // speedControl();
-        // crouchMultiplier = 1;
+        rb.useGravity = !((moveDirection.x == 0 && moveDirection.z == 0) && onSlope());
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(isGrounded)
         {
@@ -59,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
- 
+    
     public void MovePlayer(Vector2 input)
     {
         moveDirection.x = input.x;
@@ -68,13 +87,17 @@ public class PlayerMovement : MonoBehaviour
         if(moveDirection.x != 0 && moveDirection.z != 0)
         {
             playerAnimator.SetBool("isMoving", true);
-            if(isGrounded)
+            if(isGrounded && onSlope())
             {
-                rb.AddForce(moveDirection.normalized * moveSpeed * crouchMultiplier * moveMultiplier, ForceMode.Force);
+                rb.AddForce(getSlopeMoveDirection() * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
+            }
+            if(isGrounded && !onSlope())
+            {
+                rb.AddForce(moveDirection.normalized * currSpeed * moveMultiplier, ForceMode.Force);
             }
             else
             {
-                rb.AddForce(moveDirection.normalized * moveSpeed * crouchMultiplier * moveMultiplier * airMoveMultiplier, ForceMode.Force);
+                rb.AddForce(moveDirection.normalized * currSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
             }
         }
         else
