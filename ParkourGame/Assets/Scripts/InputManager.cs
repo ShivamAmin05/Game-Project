@@ -26,31 +26,48 @@ public class InputManager : MonoBehaviour
         move = GetComponent<PlayerMovement>();
         crouch = GetComponent<PlayerMovement>();
         wallRun = GetComponent<WallRunning>();
+        dash = GetComponent<DashMovement>();
+
         playerBody = GameObject.Find("PlayerBody");
         hitBox = playerBody.GetComponent<CapsuleCollider>();
         playerAnimator = playerBody.GetComponent<Animator>();
+        
 ;       player.Jump.performed += ctx => wallRun.WallJump();
+
         player.Crouch.performed += Crouch;
         player.Crouch.canceled += Crouch;
+        // player.Dash.performed += Dash;
+        // player.Dash.canceled += Dash;
     }
 
     void Crouch(InputAction.CallbackContext context)
     {
         if(context.performed) // the key has been pressed
         {
-            move.crouchMultiplier = 0.2f;
-            hitBox.height = 1f;
+            move.currSpeed = move.crouchSpeed;
+            hitBox.height = move.crouchHeight;
             hitBox.center = new Vector3(0f,0.5f,0f);
             playerAnimator.SetBool("isCrouching", true);
         }
         if(context.canceled) //the key has been released
         {
-            move.crouchMultiplier = 1f;
-            hitBox.height = 1.9f;
+            move.currSpeed = move.standSpeed;
+            hitBox.height = move.standHeight;
             hitBox.center = new Vector3(0f,0.8f,0f);
             playerAnimator.SetBool("isCrouching", false);
         }
     }
+    // void Dash(InputAction.CallbackContext context)
+    // {
+    //     if(context.performed) // the key has been pressed
+    //     {
+    //         dash.Dash();
+    //     }
+    //     if(context.canceled) //the key has been released
+    //     {
+    //         dash.ResetDash();
+    //     }
+    // }
     // Update is called once per frame
 
     void FixedUpdate()
