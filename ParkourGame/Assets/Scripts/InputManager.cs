@@ -82,6 +82,8 @@ public class InputManager : MonoBehaviour
     private void OnEnable() 
     {
         player.Enable();
+        wallRun.enabled = false;
+        wallRun.enabled = true;
     }
     private void OnDisable() 
     {
