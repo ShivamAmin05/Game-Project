@@ -115,5 +115,13 @@ public class WallRunning : MonoBehaviour
         playerAnimator.SetBool("isWallRunningRight", false);
         // charTilt = 0;
     }
+    // private void OnEnable() 
+    // {
+    //     wallRun.Enable();
+    // }
+    // private void OnDisable() 
+    // {
+    //     wallRun.Disable();
+    // }
 
 }
