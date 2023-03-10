@@ -10,7 +10,6 @@ public class ShowUi : MonoBehaviour
     {
         uiObject.SetActive(false);
     }
-
     public void OnTriggerEnter(Collider player) {
         if(player.gameObject.tag == "PlayerBody")
         {
@@ -18,7 +17,6 @@ public class ShowUi : MonoBehaviour
 
         }
     }
-
     public void OnTriggerExit(Collider player)
     {
         if(player.gameObject.tag == "PlayerBody")
