@@ -13,10 +13,13 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] float groundDistance;
     private GameObject Player;
     [SerializeField] Vector3 respawnPoint;
+    public Camera playerCam;
+    public GameObject orientation;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();   
+        playerCam = GetComponent<Camera>();
         Player = GameObject.Find("Player");
         move = GetComponent<PlayerMovement>();
     }

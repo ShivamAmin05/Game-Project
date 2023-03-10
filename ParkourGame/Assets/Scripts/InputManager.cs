@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private PlayerLook look;
     private WallRunning wallRun;
     private DashMovement dash;
+    
     GameObject camHolder;
     GameObject playerBody;
     CapsuleCollider hitBox;
