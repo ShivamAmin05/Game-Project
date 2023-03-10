@@ -4033,6 +4033,7 @@ MonoBehaviour:
   isDead: 0
   groundCheck: {fileID: 121616793}
   groundDistance: 0.4
+  respawnPoint: {x: -106.821, y: -3.848, z: 115.2007}
 --- !u!1001 &1792409635
 PrefabInstance:
   m_ObjectHideFlags: 0
