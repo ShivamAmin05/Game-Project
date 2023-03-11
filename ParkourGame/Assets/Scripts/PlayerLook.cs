@@ -26,7 +26,7 @@ public class PlayerLook : MonoBehaviour
     {
         float xInput = input.x;
         float yInput = input.y;
-
+        
         yRotation += xInput * xSens * camMultiplier;
         xRotation -= yInput * ySens * camMultiplier;
         // prevents the player from looking more than 90 degrees up or down

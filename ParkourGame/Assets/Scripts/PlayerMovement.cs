@@ -31,6 +31,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slopes")]
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
+    // [Header("Animation")]
+    // // public float animationAcel;
+    // // public float animationDecel;
+    // public float horizontalSpeed;
+    // public float verticalSpeed;
+
     private void Start() {
         
         rb = GetComponent<Rigidbody>();
@@ -53,13 +59,14 @@ public class PlayerMovement : MonoBehaviour
     }
     
     public bool onSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down,out slopeHit, 1.4f))
         {
-            if(Physics.Raycast(transform.position, Vector3.down,out slopeHit, 1.4f));
-            {
-                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                return (angle < maxSlopeAngle && angle != 0);
-            }
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return (angle < maxSlopeAngle && angle != 0);
         }
+        return false;
+     }
     public Vector3 getSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection,slopeHit.normal).normalized;
@@ -76,14 +83,53 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isGrounded",false);
         }
-
     }
-    
+    // public void animationControl(float x)
+    // {
+    //     if(x == 1 && horizontalSpeed < 10)
+    //     {
+    //         horizontalSpeed += Time.deltaTime * animationAcel;
+    //     }
+    //     if(x == -1 && horizontalSpeed > -10)
+    //     {
+    //         horizontalSpeed -= Time.deltaTime * animationAcel;
+    //     }
+    //     if(x == 0 && horizontalSpeed > 0)
+    //     {
+    //         horizontalSpeed -= Time.deltaTime * animationDecel;
+    //     }
+    //     if(x == 0 && horizontalSpeed < 0)
+    //     {
+    //         horizontalSpeed += Time.deltaTime * animationDecel;
+    //     }
+    // }
     public void MovePlayer(Vector2 input)
     {
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
+
+        if(input.x == 0)
+        {
+            playerAnimator.SetBool("isMovingHorizontal", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isMovingHorizontal", true);
+        }
+        if(input.y == 0)
+        {
+            playerAnimator.SetBool("isMovingVertical", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isMovingVertical", true);
+        }
+
+        playerAnimator.SetFloat("horizontalSpeed",input.x);
+        playerAnimator.SetFloat("verticalSpeed",input.y);
+        playerAnimator.SetFloat("verticalSpeed",input.y);
+
         if(moveDirection.x != 0 && moveDirection.z != 0)
         {
             playerAnimator.SetBool("isMoving", true);
