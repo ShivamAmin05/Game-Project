@@ -84,25 +84,6 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetBool("isGrounded",false);
         }
     }
-    // public void animationControl(float x)
-    // {
-    //     if(x == 1 && horizontalSpeed < 10)
-    //     {
-    //         horizontalSpeed += Time.deltaTime * animationAcel;
-    //     }
-    //     if(x == -1 && horizontalSpeed > -10)
-    //     {
-    //         horizontalSpeed -= Time.deltaTime * animationAcel;
-    //     }
-    //     if(x == 0 && horizontalSpeed > 0)
-    //     {
-    //         horizontalSpeed -= Time.deltaTime * animationDecel;
-    //     }
-    //     if(x == 0 && horizontalSpeed < 0)
-    //     {
-    //         horizontalSpeed += Time.deltaTime * animationDecel;
-    //     }
-    // }
     public void MovePlayer(Vector2 input)
     {
         moveDirection.x = input.x;
