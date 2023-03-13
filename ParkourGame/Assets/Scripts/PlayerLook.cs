@@ -34,7 +34,7 @@ public class PlayerLook : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -75f, 75f);
         
         playerCam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt);
-        head.transform.localRotation = Quaternion.Euler(xRotation,0,0);
+        head.transform.localRotation = Quaternion.Euler(xRotation,0d,0);
         orientation.rotation = Quaternion.Euler(0,yRotation,0);
 
         // Player.transform.rotation = Quaternion.Euler(xRotation,0f,0f);
