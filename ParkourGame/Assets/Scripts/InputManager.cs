@@ -9,15 +9,16 @@ public class InputManager : MonoBehaviour
     public PlayerInput playerInput;
     public PlayerInput.PlayerActions player;
     private PlayerMovement move;
-    private PlayerMovement crouch;
+
+    private CrouchMovement crouch;
     private PlayerLook look;
     private WallRunning wallRun;
     private DashMovement dash;
-    
-    GameObject camHolder;
-    GameObject playerBody;
+
+
     CapsuleCollider hitBox;
-    Animator playerAnimator;
+    GameObject playerBody;
+    private Animator playerAnimator;
 
     void Awake()
     {
@@ -25,7 +26,7 @@ public class InputManager : MonoBehaviour
         player = playerInput.Player;
         look = GetComponent<PlayerLook>();
         move = GetComponent<PlayerMovement>();
-        crouch = GetComponent<PlayerMovement>();
+        crouch = GetComponent<CrouchMovement>();
         wallRun = GetComponent<WallRunning>();
         dash = GetComponent<DashMovement>();
 
@@ -37,8 +38,7 @@ public class InputManager : MonoBehaviour
 
         player.Crouch.performed += Crouch;
         player.Crouch.canceled += Crouch;
-        // player.Dash.performed += Dash;
-        // player.Dash.canceled += Dash;
+
     }
 
     void Crouch(InputAction.CallbackContext context)
