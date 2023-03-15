@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,8 +85,6 @@ public class WallRunning : MonoBehaviour
             playerAnimator.SetBool("isWallRunningRight", true);
             // charTilt = 25;
         }
-       
-        
     }
     public void WallJump()
     {
@@ -115,13 +112,4 @@ public class WallRunning : MonoBehaviour
         playerAnimator.SetBool("isWallRunningRight", false);
         // charTilt = 0;
     }
-    // private void OnEnable() 
-    // {
-    //     wallRun.Enable();
-    // }
-    // private void OnDisable() 
-    // {
-    //     wallRun.Disable();
-    // }
-
 }

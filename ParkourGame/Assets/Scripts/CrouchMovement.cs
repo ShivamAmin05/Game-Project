@@ -21,26 +21,22 @@ public class CrouchMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
     public void startCrouch()
     {
         if(move.isGrounded)
         {
-        move.currSpeed = move.crouchSpeed;
-        hitBox.height = move.crouchHeight;
-        hitBox.center = new Vector3(0f,0.5f,0f);
-        playerAnimator.SetBool("isCrouching", true);
+            move.currSpeed = move.crouchSpeed;
+            hitBox.height = move.crouchHeight;
+            hitBox.center = new Vector3(0f,0.5f,0f);
+            playerAnimator.SetBool("isCrouching", true);
         }
     }
     public void endCrouch()
     {
-        if(!move.isGrounded)
-        {
-        move.currSpeed = move.crouchSpeed;
-        hitBox.height = move.crouchHeight;
-        hitBox.center = new Vector3(0f,0.5f,0f);
-        playerAnimator.SetBool("isCrouching", true);
-        }
+        move.currSpeed = move.standSpeed;
+        hitBox.height = move.standHeight;
+        hitBox.center = new Vector3(0f,0.8f,0f);
+        playerAnimator.SetBool("isCrouching", false);
     }
 }

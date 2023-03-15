@@ -36,39 +36,33 @@ public class InputManager : MonoBehaviour
         
 ;       player.Jump.performed += ctx => wallRun.WallJump();
 
-        player.Crouch.performed += Crouch;
-        player.Crouch.canceled += Crouch;
+        // player.Crouch.performed += Crouch;
+        // player.Crouch.canceled += Crouch;
 
     }
 
-    void Crouch(InputAction.CallbackContext context)
+    public void Crouch(InputAction.CallbackContext context)
     {
         if(context.performed) // the key has been pressed
         {
-            move.currSpeed = move.crouchSpeed;
-            hitBox.height = move.crouchHeight;
-            hitBox.center = new Vector3(0f,0.5f,0f);
-            playerAnimator.SetBool("isCrouching", true);
+            crouch.startCrouch();
         }
         if(context.canceled) //the key has been released
         {
-            move.currSpeed = move.standSpeed;
-            hitBox.height = move.standHeight;
-            hitBox.center = new Vector3(0f,0.8f,0f);
-            playerAnimator.SetBool("isCrouching", false);
+            crouch.endCrouch();
         }
     }
-    // void Dash(InputAction.CallbackContext context)
-    // {
-    //     if(context.performed) // the key has been pressed
-    //     {
-    //         dash.Dash();
-    //     }
-    //     if(context.canceled) //the key has been released
-    //     {
-    //         dash.ResetDash();
-    //     }
-    // }
+    void Dash(InputAction.CallbackContext context)
+    {
+        if(context.performed) // the key has been pressed
+        {
+            dash.Dash();
+        }
+        if(context.canceled) //the key has been released
+        {
+            dash.ResetDash();
+        }
+    }
     // Update is called once per frame
 
     void FixedUpdate()
@@ -83,7 +77,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable() 
     {
         player.Enable();
-        wallRun.enabled = false;
+        // wallRun.enabled = false;
         wallRun.enabled = true;
     }
     private void OnDisable() 

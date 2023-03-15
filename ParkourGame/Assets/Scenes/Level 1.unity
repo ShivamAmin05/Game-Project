@@ -5996,6 +5996,7 @@ GameObject:
   - component: {fileID: 1709108164}
   - component: {fileID: 1709108163}
   - component: {fileID: 1709108171}
+  - component: {fileID: 1709108172}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6182,10 +6183,10 @@ MonoBehaviour:
     m_ActionName: Player/Dash[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1709108166}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 1709108167}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: Crouch
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6257,6 +6258,18 @@ MonoBehaviour:
   respawnPoint: {x: -106.821, y: -3.848, z: 115.2007}
   playerCam: {fileID: 1459550107}
   orientation: {fileID: 1108932488}
+--- !u!114 &1709108172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709108162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7daaf7be7bc43d6b83be899f70d573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1737364102
 GameObject:
   m_ObjectHideFlags: 0

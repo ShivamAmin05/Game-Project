@@ -110,14 +110,4 @@ public class DashMovement : MonoBehaviour
         }
         return direction.normalized;
     }
-
-    // Update is called once per frame
-    // void OnEnable()
-    // {
-    //     playerControls.Enable();
-    // }
-    // void OnDisable()
-    // {
-    //     playerControls.Disable()
-    // }
 }
