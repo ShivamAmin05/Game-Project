@@ -13,6 +13,7 @@ public class DashMovement : MonoBehaviour
     [Header("Dash")]
     public float dashHeight;
     public float dashRadius;
+    public float slideSpeed;
     [SerializeField] float dashForce;
     [SerializeField] float groundDashMultiplier;
     [SerializeField] float dashUpwardForce;
@@ -42,12 +43,34 @@ public class DashMovement : MonoBehaviour
     private void Update()
     {
         direction = getDirection();
+        if(slideTimer > 0 && playerAnimator.GetBool("isDashing") == true)
+        {
+            slideTimer -= Time.deltaTime;
+        }
         if(movement.isGrounded)
         {
             dashNum = 0;
         }
+        if(Mathf.Abs(movement.desiredMoveSpeed - movement.currSpeed) > 10)
+        {
+            StartCoroutine(lerpMoveSpeed());
+        }
     }   
+    private IEnumerator lerpMoveSpeed()
+    {
+        float time = 0;
+        float startSpeed = movement.currSpeed;
+        float diffMoveSpeed = Mathf.Abs(movement.desiredMoveSpeed - startSpeed);
 
+        while(time < diffMoveSpeed)
+        {
+            movement.currSpeed = Mathf.Lerp(startSpeed,movement.desiredMoveSpeed,time/diffMoveSpeed);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        movement.currSpeed = slideSpeed;
+    }
     public void Dash()
     { 
         if(movement.isGrounded == false)
@@ -68,9 +91,10 @@ public class DashMovement : MonoBehaviour
             startSlide();
         }
     }
+
     public void startSlide()
     {
-        // slideTimer -= Time.deltaTime;
+        slideTimer = 2;
         cam.fieldOfView = dashFov;
         Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
         rb.AddForce(dashingForce, ForceMode.Impulse);
@@ -80,9 +104,18 @@ public class DashMovement : MonoBehaviour
         hitBox.center = new Vector3(0f,0.2f,0f);
         // if(slideTimer == 0)
         // {
-        // movement.moveSpeed *= slideTimer;
-        Invoke("ResetDash", 1.4f);
-        // }
+        // movement.standSpeed *= slideTimer;
+        // Invoke("ResetDash", 1.4f);
+        if(movement.onSlope())
+        {
+            movement.desiredMoveSpeed = slideSpeed;
+        }
+        
+        if(slideTimer <= 0)
+        {
+            ResetDash();
+        }
+
     }
     public void ResetDash()
     {

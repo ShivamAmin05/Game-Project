@@ -52,17 +52,18 @@ public class InputManager : MonoBehaviour
             crouch.endCrouch();
         }
     }
-    void Dash(InputAction.CallbackContext context)
+    public void Dash(InputAction.CallbackContext context)
     {
         if(context.performed) // the key has been pressed
         {
-            dash.Dash();
+            dash.startSlide();
         }
         if(context.canceled) //the key has been released
         {
             dash.ResetDash();
         }
     }
+
     // Update is called once per frame
 
     void FixedUpdate()

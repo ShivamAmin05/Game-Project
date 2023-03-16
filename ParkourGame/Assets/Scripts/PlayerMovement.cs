@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float currSpeed;
     public float standSpeed;
     public float crouchSpeed;
+    public float desiredMoveSpeed;
     [SerializeField] float moveMultiplier;
     [SerializeField] float slopeMultiplier;
     [SerializeField] float airMoveMultiplier;

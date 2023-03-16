@@ -56,12 +56,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Dash"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""7946bd22-25c9-4d0a-9aca-d1ff5e26be62"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Hold(duration=0.1,pressPoint=0.1)"",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Crouch"",

@@ -11037,11 +11037,12 @@ MonoBehaviour:
   playerCam: {fileID: 947528242}
   dashHeight: 0.3
   dashRadius: 0.3
+  slideSpeed: 21
   dashForce: 5
   groundDashMultiplier: 5
   dashUpwardForce: 0
   setDashes: 1
-  slideTimer: 5
+  slideTimer: 2
   dashNum: 0
   cam: {fileID: 947528242}
   dashFov: 120
@@ -11090,6 +11091,7 @@ MonoBehaviour:
   currSpeed: 0
   standSpeed: 10
   crouchSpeed: 2
+  desiredMoveSpeed: 0
   moveMultiplier: 10
   slopeMultiplier: 0.8
   airMoveMultiplier: 0.3
@@ -11163,10 +11165,10 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1944273448}
-        m_TargetAssemblyTypeName: DashMovement, Assembly-CSharp
+      - m_Target: {fileID: 1944273451}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: Dash
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

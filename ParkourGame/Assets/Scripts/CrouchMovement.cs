@@ -27,6 +27,7 @@ public class CrouchMovement : MonoBehaviour
         if(move.isGrounded)
         {
             move.currSpeed = move.crouchSpeed;
+            move.desiredMoveSpeed = move.crouchSpeed;
             hitBox.height = move.crouchHeight;
             hitBox.center = new Vector3(0f,0.5f,0f);
             playerAnimator.SetBool("isCrouching", true);
