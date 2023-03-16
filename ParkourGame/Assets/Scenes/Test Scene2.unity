@@ -11037,12 +11037,13 @@ MonoBehaviour:
   playerCam: {fileID: 947528242}
   dashHeight: 0.3
   dashRadius: 0.3
-  slideSpeed: 21
-  dashForce: 5
+  slideSpeed: 30
+  dashForce: 10
   groundDashMultiplier: 5
   dashUpwardForce: 0
   setDashes: 1
   slideTimer: 2
+  slideTimeMultiplier: 5
   dashNum: 0
   cam: {fileID: 947528242}
   dashFov: 120
@@ -11092,6 +11093,8 @@ MonoBehaviour:
   standSpeed: 10
   crouchSpeed: 2
   desiredMoveSpeed: 0
+  lastDesiredMoveSpeed: 0
+  timeMultiplier: 5
   moveMultiplier: 10
   slopeMultiplier: 0.8
   airMoveMultiplier: 0.3
@@ -11224,7 +11227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944273444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.71, y: -2.37, z: 1.35}
+  m_LocalPosition: {x: -39.21, y: 8.45, z: -5.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17466,7 +17469,7 @@ Transform:
   m_GameObject: {fileID: 2086229898}
   m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
   m_LocalPosition: {x: -23.47273, y: -24.235151, z: -4.925833}
-  m_LocalScale: {x: 97.92737, y: -1.4064063, z: 7.942506}
+  m_LocalScale: {x: 8655.66, y: -1.4064063, z: 7.942506}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 422502048}

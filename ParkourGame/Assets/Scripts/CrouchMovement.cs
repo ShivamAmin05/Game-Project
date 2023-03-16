@@ -26,7 +26,6 @@ public class CrouchMovement : MonoBehaviour
     {
         if(move.isGrounded)
         {
-            // move.currSpeed = move.crouchSpeed;
             move.desiredMoveSpeed = move.crouchSpeed;
             hitBox.height = move.crouchHeight;
             hitBox.center = new Vector3(0f,0.5f,0f);
@@ -35,10 +34,12 @@ public class CrouchMovement : MonoBehaviour
     }
     public void endCrouch()
     {
-        // move.currSpeed = move.standSpeed;
-        move.desiredMoveSpeed = move.standSpeed;
-        hitBox.height = move.standHeight;
-        hitBox.center = new Vector3(0f,0.8f,0f);
-        playerAnimator.SetBool("isCrouching", false);
+        if(move.isGrounded)
+        {
+            move.desiredMoveSpeed = move.standSpeed;
+            hitBox.height = move.standHeight;
+            hitBox.center = new Vector3(0f,0.8f,0f);
+            playerAnimator.SetBool("isCrouching", false);
+        }
     }
 }

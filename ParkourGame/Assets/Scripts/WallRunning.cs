@@ -17,6 +17,9 @@ public class WallRunning : MonoBehaviour
     [SerializeField] float minimumJumpHeight;
     [SerializeField] float wallRunGravity;
     [SerializeField] float wallRunJumpForce;
+    [SerializeField] float wallRunSpeed;
+    [SerializeField] float wallRunTimeAcel;
+
     private bool wallLeft;
     private bool wallRight;
     private RaycastHit leftWallHit;
@@ -49,7 +52,6 @@ public class WallRunning : MonoBehaviour
     void Update() 
     {
         CheckWall();
-
         if(!move.isGrounded)
         {
             if (wallLeft || wallRight)
@@ -62,7 +64,7 @@ public class WallRunning : MonoBehaviour
                 StopWallRun();
             }
         }
-        if(move.isGrounded)
+        if(move.isGrounded && !move.onSlope())
         {
             StopWallRun();
         }
@@ -72,24 +74,25 @@ public class WallRunning : MonoBehaviour
         rb.useGravity = false;
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallFov, FovTransition * Time.deltaTime);
+        move.desiredMoveSpeed = wallRunSpeed;
+        move.timeMultiplier = wallRunTimeAcel;
         if(wallLeft)
         {
             tilt = Mathf.Lerp(tilt,-camTilt,camTiltTime * Time.deltaTime);
             playerAnimator.SetBool("isWallRunningLeft", true);
-            // playerBody.transform.rotation = Quaternion.Euler(45f,0f, 0f);
-            // charTilt = 25;
         }
         if (wallRight)
         {
             tilt = Mathf.Lerp(tilt,camTilt,camTiltTime * Time.deltaTime);
             playerAnimator.SetBool("isWallRunningRight", true);
-            // charTilt = 25;
         }
     }
     public void WallJump()
     {
         if(!move.isGrounded)
         {
+            // move.desiredMoveSpeed = move.standSpeed;
+            // move.timeMultiplier = move.standSpeedTimeMultiplier;
             if(wallLeft)
             {
                 Vector3 wallRunJumpDistance = transform.up + leftWallHit.normal;
@@ -106,10 +109,14 @@ public class WallRunning : MonoBehaviour
     }
     public void StopWallRun()
     {
+        if(!move.onSlope() && move.currSpeed > move.standSpeed)
+        {
+            move.desiredMoveSpeed = move.standSpeed;
+            move.timeMultiplier = move.standSpeedTimeMultiplier;
+        }
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, look.fov, FovTransition * Time.deltaTime);
         tilt = Mathf.Lerp(tilt,0,camTiltTime * Time.deltaTime);
         playerAnimator.SetBool("isWallRunningLeft", false);
         playerAnimator.SetBool("isWallRunningRight", false);
-        // charTilt = 0;
     }
 }

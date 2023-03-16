@@ -19,6 +19,7 @@ public class DashMovement : MonoBehaviour
     [SerializeField] float dashUpwardForce;
     [SerializeField] int setDashes;
     [SerializeField] float slideTimer;
+    [SerializeField] float slideTimeMultiplier;
     public int dashNum;
 
     [Header("Camera")]
@@ -55,7 +56,7 @@ public class DashMovement : MonoBehaviour
         
     public void Dash()
     { 
-        if(movement.isGrounded == false)
+        if(!movement.isGrounded)
         {
             // divided dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
@@ -77,6 +78,8 @@ public class DashMovement : MonoBehaviour
     public void startSlide()
     {
         slideTimer = 2;
+        movement.timeMultiplier = slideTimeMultiplier;
+        movement.desiredMoveSpeed = 0;
         cam.fieldOfView = dashFov;
         Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
         rb.AddForce(dashingForce, ForceMode.Impulse);
@@ -86,14 +89,13 @@ public class DashMovement : MonoBehaviour
         hitBox.center = new Vector3(0f,0.2f,0f);
         // if(slideTimer == 0)
         // {
-        // movement.standSpeed *= slideTimer;
         // Invoke("ResetDash", 1.4f);
-        if(movement.onSlope())
+        if(movement.onSlope() && rb.velocity.y < -0.1f)
         {
             movement.desiredMoveSpeed = slideSpeed;
         }
         
-        // if(slideTimer <= 0)
+        // if(slideTimer <= 0 || movement.currSpeed < 0.1f)
         // {
         //     ResetDash();
         // }
@@ -107,6 +109,7 @@ public class DashMovement : MonoBehaviour
         hitBox.height = movement.standHeight;
         hitBox.radius = movement.standRadius;
         hitBox.center = new Vector3(0f,0.8f,0f);
+        movement.timeMultiplier = movement.standSpeedTimeMultiplier;
         movement.desiredMoveSpeed = movement.standSpeed;
     }
 

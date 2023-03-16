@@ -56,7 +56,7 @@ public class InputManager : MonoBehaviour
     {
         if(context.performed) // the key has been pressed
         {
-            dash.startSlide();
+            dash.Dash();
         }
         if(context.canceled) //the key has been released
         {
@@ -78,7 +78,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable() 
     {
         player.Enable();
-        // wallRun.enabled = false;
+        wallRun.enabled = false;
         wallRun.enabled = true;
     }
     private void OnDisable() 

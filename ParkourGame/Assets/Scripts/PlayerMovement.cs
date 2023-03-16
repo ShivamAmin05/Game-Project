@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed;
     public float desiredMoveSpeed;
     public float lastDesiredMoveSpeed;
+    public float standSpeedTimeMultiplier;
+    public float timeMultiplier;
     [SerializeField] float moveMultiplier;
     [SerializeField] float slopeMultiplier;
     [SerializeField] float airMoveMultiplier;
@@ -86,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isGrounded",false);
         }
-        if(Mathf.Abs(lastDesiredMoveSpeed - desiredMoveSpeed) > 10 && currSpeed != 0)
+        if(Mathf.Abs(lastDesiredMoveSpeed - desiredMoveSpeed) > standSpeed - 1 && currSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(lerpMoveSpeed());
@@ -107,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         while(time < diffMoveSpeed)
         {
             currSpeed = Mathf.Lerp(startSpeed,desiredMoveSpeed,time/diffMoveSpeed);
-            time += (Time.deltaTime * 5);
+            time += (Time.deltaTime * timeMultiplier);
             yield return null;
         }
     }
@@ -125,21 +127,24 @@ public class PlayerMovement : MonoBehaviour
         if(moveDirection.x != 0 && moveDirection.z != 0)
         {
             playerAnimator.SetBool("isMoving", true);
-            if(isGrounded && onSlope())
+            if(isGrounded && onSlope() && rb.velocity.y > -0.1f)
             {
                 rb.AddForce(getSlopeMoveDirection(moveDirection) * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
+                print("NO");
             }
             if(isGrounded && onSlope() && rb.velocity.y < -0.1f)
             {
-                rb.AddForce(0f,90f,0f, ForceMode.Force);
+                rb.AddForce(getSlopeMoveDirection(moveDirection) * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
+                print("YES");
+                
+            }
+            if(!isGrounded)
+            {
+                rb.AddForce(moveDirection.normalized * currSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
             }
             if(isGrounded && !onSlope())
             {
                 rb.AddForce(moveDirection.normalized * currSpeed * moveMultiplier, ForceMode.Force);
-            }
-            else
-            {
-                rb.AddForce(moveDirection.normalized * currSpeed * moveMultiplier * airMoveMultiplier, ForceMode.Force);
             }
         }
         else
@@ -151,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(isGrounded)
         {
+            desiredMoveSpeed = standSpeed;
             rb.velocity = new Vector3(rb.velocity.x,0,rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             playerAnimator.SetBool("isJumping", true);
