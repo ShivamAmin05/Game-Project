@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float standSpeed;
     public float crouchSpeed;
     public float desiredMoveSpeed;
+    public float lastDesiredMoveSpeed;
     [SerializeField] float moveMultiplier;
     [SerializeField] float slopeMultiplier;
     [SerializeField] float airMoveMultiplier;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
         currSpeed = standSpeed;
+        desiredMoveSpeed = standSpeed;
     }
     private void ControlDrag()
     {   
@@ -68,9 +70,9 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
      }
-    public Vector3 getSlopeMoveDirection()
+    public Vector3 getSlopeMoveDirection(Vector3 direction)
     {
-        return Vector3.ProjectOnPlane(moveDirection,slopeHit.normal).normalized;
+        return Vector3.ProjectOnPlane(direction,slopeHit.normal).normalized;
     }
     private void Update() {
         ControlDrag();
@@ -84,6 +86,30 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isGrounded",false);
         }
+        if(Mathf.Abs(lastDesiredMoveSpeed - desiredMoveSpeed) > 10 && currSpeed != 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(lerpMoveSpeed());
+        }
+        else
+        {
+            currSpeed = desiredMoveSpeed;
+        }
+        lastDesiredMoveSpeed = desiredMoveSpeed;
+
+    }   
+    private IEnumerator lerpMoveSpeed()
+    {
+        float time = 0;
+        float startSpeed = currSpeed;
+        float diffMoveSpeed = Mathf.Abs(desiredMoveSpeed - currSpeed);
+
+        while(time < diffMoveSpeed)
+        {
+            currSpeed = Mathf.Lerp(startSpeed,desiredMoveSpeed,time/diffMoveSpeed);
+            time += (Time.deltaTime * 5);
+            yield return null;
+        }
     }
     public void MovePlayer(Vector2 input)
     {
@@ -91,25 +117,9 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.z = input.y;
         moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
 
-        if(input.x == 0)
-        {
-            playerAnimator.SetBool("isMovingHorizontal", false);
-        }
-        else
-        {
-            playerAnimator.SetBool("isMovingHorizontal", true);
-        }
-        if(input.y == 0)
-        {
-            playerAnimator.SetBool("isMovingVertical", false);
-        }
-        else
-        {
-            playerAnimator.SetBool("isMovingVertical", true);
-        }
-
+        playerAnimator.SetBool("isMovingHorizontal", input.x == 0);
+        playerAnimator.SetBool("isMovingVertical", input.y == 0);
         playerAnimator.SetFloat("horizontalSpeed",input.x);
-        playerAnimator.SetFloat("verticalSpeed",input.y);
         playerAnimator.SetFloat("verticalSpeed",input.y);
 
         if(moveDirection.x != 0 && moveDirection.z != 0)
@@ -117,7 +127,11 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetBool("isMoving", true);
             if(isGrounded && onSlope())
             {
-                rb.AddForce(getSlopeMoveDirection() * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
+                rb.AddForce(getSlopeMoveDirection(moveDirection) * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
+            }
+            if(isGrounded && onSlope() && rb.velocity.y < -0.1f)
+            {
+                rb.AddForce(0f,90f,0f, ForceMode.Force);
             }
             if(isGrounded && !onSlope())
             {

@@ -51,26 +51,8 @@ public class DashMovement : MonoBehaviour
         {
             dashNum = 0;
         }
-        if(Mathf.Abs(movement.desiredMoveSpeed - movement.currSpeed) > 10)
-        {
-            StartCoroutine(lerpMoveSpeed());
-        }
-    }   
-    private IEnumerator lerpMoveSpeed()
-    {
-        float time = 0;
-        float startSpeed = movement.currSpeed;
-        float diffMoveSpeed = Mathf.Abs(movement.desiredMoveSpeed - startSpeed);
-
-        while(time < diffMoveSpeed)
-        {
-            movement.currSpeed = Mathf.Lerp(startSpeed,movement.desiredMoveSpeed,time/diffMoveSpeed);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        movement.currSpeed = slideSpeed;
     }
+        
     public void Dash()
     { 
         if(movement.isGrounded == false)
@@ -111,12 +93,13 @@ public class DashMovement : MonoBehaviour
             movement.desiredMoveSpeed = slideSpeed;
         }
         
-        if(slideTimer <= 0)
-        {
-            ResetDash();
-        }
+        // if(slideTimer <= 0)
+        // {
+        //     ResetDash();
+        // }
 
     }
+
     public void ResetDash()
     {
         playerAnimator.SetBool("isDashing", false);
@@ -124,6 +107,7 @@ public class DashMovement : MonoBehaviour
         hitBox.height = movement.standHeight;
         hitBox.radius = movement.standRadius;
         hitBox.center = new Vector3(0f,0.8f,0f);
+        movement.desiredMoveSpeed = movement.standSpeed;
     }
 
     public Vector3 getDirection()
@@ -135,7 +119,7 @@ public class DashMovement : MonoBehaviour
         }
         else if(movement.isGrounded && movement.onSlope())
         {
-            direction = movement.getSlopeMoveDirection();
+            direction = movement.getSlopeMoveDirection(movement.moveDirection);
         }
         else
         {
