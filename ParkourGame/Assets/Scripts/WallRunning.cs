@@ -61,7 +61,7 @@ public class WallRunning : MonoBehaviour
             }
             else
             {
-                StopWallRun();
+                Invoke("StopWallRun",0.1f);
             }
         }
         if(move.isGrounded && !move.onSlope())

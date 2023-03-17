@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = Vector3.zero;
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
-        currSpeed = standSpeed;
+        // currSpeed = standSpeed;
         desiredMoveSpeed = standSpeed;
     }
     private void ControlDrag()

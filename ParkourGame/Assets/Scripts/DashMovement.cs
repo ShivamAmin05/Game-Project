@@ -8,7 +8,7 @@ public class DashMovement : MonoBehaviour
     public Transform camPos;
     public Camera playerCam;
     private Rigidbody rb;
-    private PlayerMovement movement;
+    private PlayerMovement move;
 
     [Header("Dash")]
     public float dashHeight;
@@ -36,7 +36,7 @@ public class DashMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        movement = GetComponent<PlayerMovement>();
+        move = GetComponent<PlayerMovement>();
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
         hitBox = playerBody.GetComponent<CapsuleCollider>();
@@ -44,11 +44,15 @@ public class DashMovement : MonoBehaviour
     private void Update()
     {
         direction = getDirection();
-        if(slideTimer > 0 && playerAnimator.GetBool("isDashing") == true)
+        if(slideTimer > 0 && playerAnimator.GetBool("isDashing"))
         {
             slideTimer -= Time.deltaTime;
         }
-        if(movement.isGrounded)
+        if(slideTimer <= 0 && playerAnimator.GetBool("isDashing") && !move.onSlope())
+        {
+            move.desiredMoveSpeed = move.standSpeed;
+        }
+        if(move.isGrounded)
         {
             dashNum = 0;
         }
@@ -56,7 +60,7 @@ public class DashMovement : MonoBehaviour
         
     public void Dash()
     { 
-        if(!movement.isGrounded)
+        if(!move.isGrounded)
         {
             // divided dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
@@ -78,8 +82,8 @@ public class DashMovement : MonoBehaviour
     public void startSlide()
     {
         slideTimer = 2;
-        movement.timeMultiplier = slideTimeMultiplier;
-        movement.desiredMoveSpeed = 0;
+        move.timeMultiplier = slideTimeMultiplier;
+        move.desiredMoveSpeed = 0;
         cam.fieldOfView = dashFov;
         Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
         rb.AddForce(dashingForce, ForceMode.Impulse);
@@ -90,15 +94,15 @@ public class DashMovement : MonoBehaviour
         // if(slideTimer == 0)
         // {
         // Invoke("ResetDash", 1.4f);
-        if(movement.onSlope() && rb.velocity.y < -0.1f)
+        if(move.onSlope() && rb.velocity.y < -0.1f)
         {
-            movement.desiredMoveSpeed = slideSpeed;
+            move.desiredMoveSpeed = slideSpeed;
         }
         
-        // if(slideTimer <= 0 || movement.currSpeed < 0.1f)
-        // {
-        //     ResetDash();
-        // }
+        if(!move.onSlope() && move.currSpeed > move.standSpeed)
+        {
+            move.desiredMoveSpeed = move.standSpeed;
+        }
 
     }
 
@@ -106,23 +110,23 @@ public class DashMovement : MonoBehaviour
     {
         playerAnimator.SetBool("isDashing", false);
         playerAnimator.SetBool("isAirDashing", false);
-        hitBox.height = movement.standHeight;
-        hitBox.radius = movement.standRadius;
+        hitBox.height = move.standHeight;
+        hitBox.radius = move.standRadius;
         hitBox.center = new Vector3(0f,0.8f,0f);
-        movement.timeMultiplier = movement.standSpeedTimeMultiplier;
-        movement.desiredMoveSpeed = movement.standSpeed;
+        move.timeMultiplier = move.standSpeedTimeMultiplier;
+        move.desiredMoveSpeed = move.standSpeed;
     }
 
     public Vector3 getDirection()
     {
         Vector3 direction = new Vector3();
-        if(movement.isGrounded && !movement.onSlope())
+        if(move.isGrounded && !move.onSlope())
         {
-            direction = movement.moveDirection;
+            direction = move.moveDirection;
         }
-        else if(movement.isGrounded && movement.onSlope())
+        else if(move.isGrounded && move.onSlope())
         {
-            direction = movement.getSlopeMoveDirection(movement.moveDirection);
+            direction = move.getSlopeMoveDirection(move.moveDirection);
         }
         else
         {

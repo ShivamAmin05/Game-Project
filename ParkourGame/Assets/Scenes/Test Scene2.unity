@@ -9060,7 +9060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8cf152a0a06b3dc47a7c6d40918d95a9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: -0.244
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8cf152a0a06b3dc47a7c6d40918d95a9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9116,7 +9116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3044238324631066772, guid: 8cf152a0a06b3dc47a7c6d40918d95a9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8cf152a0a06b3dc47a7c6d40918d95a9, type: 3}
       propertyPath: m_Name
@@ -9269,7 +9269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324607035}
   m_LocalRotation: {x: -0.00000001081753, y: -1, z: -0.00000004703179, w: -0.000034017023}
-  m_LocalPosition: {x: 0, y: 0.1085, z: 0.1547}
+  m_LocalPosition: {x: 0, y: 0.212, z: 0.155}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9635,7 +9635,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh103124
+  m_Name: pb_Mesh147314
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10687,7 +10687,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh103078
+  m_Name: pb_Mesh147246
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11037,13 +11037,13 @@ MonoBehaviour:
   playerCam: {fileID: 947528242}
   dashHeight: 0.3
   dashRadius: 0.3
-  slideSpeed: 30
+  slideSpeed: 100
   dashForce: 10
   groundDashMultiplier: 5
   dashUpwardForce: 0
   setDashes: 1
   slideTimer: 2
-  slideTimeMultiplier: 5
+  slideTimeMultiplier: 10
   dashNum: 0
   cam: {fileID: 947528242}
   dashFov: 120
@@ -11062,8 +11062,10 @@ MonoBehaviour:
   orientation: {fileID: 1998623421}
   wallDistance: 1
   minimumJumpHeight: 1.5
-  wallRunGravity: 0.1
+  wallRunGravity: 0.7
   wallRunJumpForce: 5
+  wallRunSpeed: 21
+  wallRunTimeAcel: 1.1
   cam: {fileID: 947528242}
   wallFov: 120
   FovTransition: 0.5
@@ -11089,12 +11091,13 @@ MonoBehaviour:
   standHeight: 1.9
   standRadius: 0.5
   crouchHeight: 1.2
-  currSpeed: 0
+  currSpeed: 10
   standSpeed: 10
   crouchSpeed: 2
   desiredMoveSpeed: 0
   lastDesiredMoveSpeed: 0
-  timeMultiplier: 5
+  standSpeedTimeMultiplier: 2
+  timeMultiplier: 0
   moveMultiplier: 10
   slopeMultiplier: 0.8
   airMoveMultiplier: 0.3
@@ -11227,7 +11230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944273444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.21, y: 8.45, z: -5.84}
+  m_LocalPosition: {x: -50.85, y: 18.93, z: -5.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17527,7 +17530,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh102882
+  m_Name: pb_Mesh147078
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
