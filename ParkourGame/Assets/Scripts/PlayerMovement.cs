@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
+    private WallRunning wallRun;
     [Header("References")]
     [SerializeField]Transform orientation; 
     [SerializeField] LayerMask groundMask;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float desiredMoveSpeed;
     public float lastDesiredMoveSpeed;
     public float standSpeedTimeMultiplier;
+    public float airSpeedTimeMultiplier;
     public float timeMultiplier;
     [SerializeField] float moveMultiplier;
     [SerializeField] float slopeMultiplier;
@@ -35,11 +37,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slopes")]
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
-    // [Header("Animation")]
-    // // public float animationAcel;
-    // // public float animationDecel;
-    // public float horizontalSpeed;
-    // public float verticalSpeed;
 
     private void Start() {
         
@@ -48,18 +45,43 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = Vector3.zero;
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
-        // currSpeed = standSpeed;
+        wallRun = GetComponent<WallRunning>();
         desiredMoveSpeed = standSpeed;
     }
     private void ControlDrag()
     {   
-        if(isGrounded)
+        if(isGrounded && !playerAnimator.GetBool("isDashing"))
         {
             rb.drag = groundDrag;
         }
-        else
+        else if(playerAnimator.GetBool("isWallRunningRight") || playerAnimator.GetBool("isWallRunningLeft"))
+        {
+            rb.drag = wallRun.wallRunDrag;
+        }
+        else if(!isGrounded)
         {
             rb.drag = airDrag;
+        }
+    }
+
+    public void ControlSpeed()
+    {
+        if(onSlope() && !playerAnimator.GetBool("isJumping") && !playerAnimator.GetBool("isDashing"))
+        {
+            if(rb.velocity.magnitude > currSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * currSpeed;
+            }
+        }
+        else
+        {
+            Vector3 vel = new Vector3(rb.velocity.x,0f,rb.velocity.z);
+            if(vel.magnitude > currSpeed)
+            {
+                Vector3 limitVel = vel.normalized * currSpeed;
+                rb.velocity = new Vector3(limitVel.x,rb.velocity.y,limitVel.z);
+
+            }
         }
     }
     
@@ -78,21 +100,23 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update() {
         ControlDrag();
+        ControlSpeed();
         rb.useGravity = !((moveDirection.x == 0 && moveDirection.z == 0) && onSlope());
+        playerAnimator.SetFloat("currSpeed",currSpeed);
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if(isGrounded)
-        {
-            playerAnimator.SetBool("isGrounded",true);
-        }
-        else 
-        {
-            playerAnimator.SetBool("isGrounded",false);
-        }
+    
+        playerAnimator.SetBool("isGrounded",isGrounded);
+
         if(Mathf.Abs(lastDesiredMoveSpeed - desiredMoveSpeed) > standSpeed - 1 && currSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(lerpMoveSpeed());
         }
+        // else if(moveDirection.magnitude == 0)
+        // {
+        //     // desiredMoveSpeed = standSpeed;
+        //     // timeMultiplier = 15;
+        // }
         else
         {
             currSpeed = desiredMoveSpeed;
@@ -112,6 +136,8 @@ public class PlayerMovement : MonoBehaviour
             time += (Time.deltaTime * timeMultiplier);
             yield return null;
         }
+
+        currSpeed = desiredMoveSpeed;
     }
     public void MovePlayer(Vector2 input)
     {
@@ -130,13 +156,10 @@ public class PlayerMovement : MonoBehaviour
             if(isGrounded && onSlope() && rb.velocity.y > -0.1f)
             {
                 rb.AddForce(getSlopeMoveDirection(moveDirection) * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
-                print("NO");
             }
             if(isGrounded && onSlope() && rb.velocity.y < -0.1f)
             {
                 rb.AddForce(getSlopeMoveDirection(moveDirection) * currSpeed * slopeMultiplier * moveMultiplier, ForceMode.Force);
-                print("YES");
-                
             }
             if(!isGrounded)
             {
@@ -157,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             desiredMoveSpeed = standSpeed;
-            rb.velocity = new Vector3(rb.velocity.x,0,rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x,0f,rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             playerAnimator.SetBool("isJumping", true);
         }

@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
         hitBox = playerBody.GetComponent<CapsuleCollider>();
         playerAnimator = playerBody.GetComponent<Animator>();
         
-;       player.Jump.performed += ctx => wallRun.WallJump();
+;       player.Jump.started += ctx => wallRun.WallJump();
 
         // player.Crouch.performed += Crouch;
         // player.Crouch.canceled += Crouch;
@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     }
     public void Dash(InputAction.CallbackContext context)
     {
-        if(context.performed) // the key has been pressed
+        if(context.started) // the key has been pressed
         {
             dash.Dash();
         }
@@ -78,8 +78,8 @@ public class InputManager : MonoBehaviour
     private void OnEnable() 
     {
         player.Enable();
-        wallRun.enabled = false;
-        wallRun.enabled = true;
+        // wallRun.enabled = false;
+        // wallRun.enabled = true;
     }
     private void OnDisable() 
     {

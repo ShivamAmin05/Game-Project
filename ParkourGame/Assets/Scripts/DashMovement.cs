@@ -9,10 +9,12 @@ public class DashMovement : MonoBehaviour
     public Camera playerCam;
     private Rigidbody rb;
     private PlayerMovement move;
+    private CrouchMovement crouch;
 
     [Header("Dash")]
     public float dashHeight;
     public float dashRadius;
+    public float slopeSpeed;
     public float slideSpeed;
     [SerializeField] float dashForce;
     [SerializeField] float groundDashMultiplier;
@@ -20,6 +22,7 @@ public class DashMovement : MonoBehaviour
     [SerializeField] int setDashes;
     [SerializeField] float slideTimer;
     [SerializeField] float slideTimeMultiplier;
+    [SerializeField]
     public int dashNum;
 
     [Header("Camera")]
@@ -37,6 +40,7 @@ public class DashMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         move = GetComponent<PlayerMovement>();
+        crouch = GetComponent<CrouchMovement>();
         playerBody = GameObject.Find("PlayerBody");
         playerAnimator = playerBody.GetComponent<Animator>();
         hitBox = playerBody.GetComponent<CapsuleCollider>();
@@ -48,9 +52,9 @@ public class DashMovement : MonoBehaviour
         {
             slideTimer -= Time.deltaTime;
         }
-        if(slideTimer <= 0 && playerAnimator.GetBool("isDashing") && !move.onSlope())
+        if(slideTimer <= 0  && !move.onSlope() && !(rb.velocity.y < -0.1f))
         {
-            move.desiredMoveSpeed = move.standSpeed;
+            move.desiredMoveSpeed = 0;
         }
         if(move.isGrounded)
         {
@@ -60,7 +64,7 @@ public class DashMovement : MonoBehaviour
         
     public void Dash()
     { 
-        if(!move.isGrounded)
+        if(!move.isGrounded && !move.onSlope())
         {
             // divided dashNum by 3 because every time dash is called unity increments dashNum by 3
             if(dashNum/3 < setDashes)
@@ -78,12 +82,16 @@ public class DashMovement : MonoBehaviour
             startSlide();
         }
     }
-
+    private IEnumerator wait(float sec)
+    {
+        yield return new WaitForSecondsRealtime(sec);
+    }
     public void startSlide()
     {
-        slideTimer = 2;
+        slideTimer = 0.3f;
         move.timeMultiplier = slideTimeMultiplier;
-        move.desiredMoveSpeed = 0;
+        move.desiredMoveSpeed = slideSpeed;
+    
         cam.fieldOfView = dashFov;
         Vector3 dashingForce = direction * dashForce * groundDashMultiplier;
         rb.AddForce(dashingForce, ForceMode.Impulse);
@@ -96,14 +104,17 @@ public class DashMovement : MonoBehaviour
         // Invoke("ResetDash", 1.4f);
         if(move.onSlope() && rb.velocity.y < -0.1f)
         {
-            move.desiredMoveSpeed = slideSpeed;
+            move.desiredMoveSpeed = slopeSpeed;
         }
         
-        if(!move.onSlope() && move.currSpeed > move.standSpeed)
-        {
-            move.desiredMoveSpeed = move.standSpeed;
-        }
-
+        // if(!move.onSlope() && move.currSpeed > move.standSpeed)
+        // {
+        //     move.desiredMoveSpeed = move.standSpeed;
+        // }
+        // if(move.currSpeed <= 0.1f)
+        // {
+            
+        // }
     }
 
     public void ResetDash()
@@ -115,6 +126,7 @@ public class DashMovement : MonoBehaviour
         hitBox.center = new Vector3(0f,0.8f,0f);
         move.timeMultiplier = move.standSpeedTimeMultiplier;
         move.desiredMoveSpeed = move.standSpeed;
+        slideTimer = 0.3f;
     }
 
     public Vector3 getDirection()

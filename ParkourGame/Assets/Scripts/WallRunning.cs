@@ -19,9 +19,9 @@ public class WallRunning : MonoBehaviour
     [SerializeField] float wallRunJumpForce;
     [SerializeField] float wallRunSpeed;
     [SerializeField] float wallRunTimeAcel;
-
-    private bool wallLeft;
-    private bool wallRight;
+    public float wallRunDrag;
+    public bool wallLeft;
+    public bool wallRight;
     private RaycastHit leftWallHit;
     private RaycastHit rightWallHit;
     [Header("Camera")]
@@ -49,7 +49,7 @@ public class WallRunning : MonoBehaviour
         return;
     }
 
-    void Update() 
+    private void FixedUpdate()
     {
         CheckWall();
         if(!move.isGrounded)
@@ -74,17 +74,19 @@ public class WallRunning : MonoBehaviour
         rb.useGravity = false;
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallFov, FovTransition * Time.deltaTime);
-        move.desiredMoveSpeed = wallRunSpeed;
-        move.timeMultiplier = wallRunTimeAcel;
         if(wallLeft)
         {
             tilt = Mathf.Lerp(tilt,-camTilt,camTiltTime * Time.deltaTime);
             playerAnimator.SetBool("isWallRunningLeft", true);
+            move.desiredMoveSpeed = wallRunSpeed;
+            move.timeMultiplier = wallRunTimeAcel;
         }
         if (wallRight)
         {
             tilt = Mathf.Lerp(tilt,camTilt,camTiltTime * Time.deltaTime);
             playerAnimator.SetBool("isWallRunningRight", true);
+            move.desiredMoveSpeed = wallRunSpeed;
+            move.timeMultiplier = wallRunTimeAcel;
         }
     }
     public void WallJump()
@@ -92,18 +94,19 @@ public class WallRunning : MonoBehaviour
         if(!move.isGrounded)
         {
             // move.desiredMoveSpeed = move.standSpeed;
-            // move.timeMultiplier = move.standSpeedTimeMultiplier;
-            if(wallLeft)
+            if(wallLeft && !move.onSlope())
             {
                 Vector3 wallRunJumpDistance = transform.up + leftWallHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce (wallRunJumpDistance * wallRunJumpForce * 100,ForceMode.Force);
+                move.timeMultiplier = move.airSpeedTimeMultiplier;
             }
-            else if(wallRight)
+            else if(wallRight && !move.onSlope())
             {
                 Vector3 wallRunJumpDistance = transform.up + rightWallHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce (wallRunJumpDistance * wallRunJumpForce * 100,ForceMode.Force);
+                move.timeMultiplier = move.airSpeedTimeMultiplier;
             }
         }
     }
@@ -112,7 +115,7 @@ public class WallRunning : MonoBehaviour
         if(!move.onSlope() && move.currSpeed > move.standSpeed)
         {
             move.desiredMoveSpeed = move.standSpeed;
-            move.timeMultiplier = move.standSpeedTimeMultiplier;
+            move.timeMultiplier= move.airSpeedTimeMultiplier;
         }
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, look.fov, FovTransition * Time.deltaTime);
         tilt = Mathf.Lerp(tilt,0,camTiltTime * Time.deltaTime);
